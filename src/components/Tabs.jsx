@@ -1,9 +1,10 @@
 import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Feather } from '@expo/vector-icons';
 import ChatBot from './ChatBot';
 import Profile from './Profile';
 import Recommendation from './Recommendation';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Feather } from '@expo/vector-icons';
+import Market from './Market';
 
 const Tab = createBottomTabNavigator();
 
@@ -74,6 +75,7 @@ function Tabs({ weather }) {
                     tabBarStyle: {
                         backgroundColor: '#095c85'
                     },
+                    headerShown: false,
                     headerStyle: {
                         backgroundColor: '#81d2e5',
                     },
@@ -94,12 +96,13 @@ function Tabs({ weather }) {
                     tabBarStyle: {
                         backgroundColor: '#095c85'
                     },
+                    headerShown: false,
                     headerStyle: {
                         backgroundColor: '#81d2e5',
                     },
                 }}
             >
-                {() => <Recommendation />}
+                {() => <Market />}
             </Tab.Screen>
             <Tab.Screen
                 name={'Data'}
