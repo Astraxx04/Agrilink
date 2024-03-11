@@ -5,6 +5,10 @@ import SignUp from './src/screens/SignUp';
 import Home from './src/screens/Home';
 import Tabs from './src/components/Tabs';
 
+
+
+
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
