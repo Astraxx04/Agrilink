@@ -9,7 +9,7 @@ const Recommendation = () => {
     const navigation = useNavigation();
 
     const handleRecommendationPress = () => {
-        navigation.navigate('Profile');
+        navigation.navigate('CropRecommend1');
     };
 
     const handleYieldPress = () => {

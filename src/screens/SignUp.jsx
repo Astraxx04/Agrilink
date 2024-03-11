@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Alert, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import axios from 'axios';
 const agriLinkLogo = require("../../assets/images/agriLinkLogo.png");
@@ -62,6 +62,7 @@ const SignUp = () => {
             response = " ";
             if (response) {
                 console.log('SignUp successful', response.data);
+                Alert.alert("Success", "You are signed up successfully!");
                 navigation.navigate('Login');
             }
         } catch (error) {
