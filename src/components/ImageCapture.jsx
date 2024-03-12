@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, View, Image, Text, Button } from 'react-nativ
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
+import * as FS from "expo-file-system";
 import CustomButton from './CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -22,28 +23,29 @@ function ImageCapture() {
         })();
     }, [])
 
+    if(hasCameraPermission === false) {
+        return <Text>No access to Camera</Text>
+    }
+
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect:[1,1],
             quality: 1,
         });
+        console.log(result);
 
-        if (!result.cancelled) {
-            setImage(result.uri);
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
         }
     };
-
-    if(hasCameraPermission === false) {
-        return <Text>No access to Camera</Text>
-    }
 
     const takePicture = async () => {
         if(cameraRef) {
             try {
                 const data = await cameraRef.current.takePictureAsync();
-                console.log(data.uri);
+                console.log(data);
                 setImage(data.uri);
             } catch(err) {
                 console.log(err);
@@ -57,7 +59,21 @@ function ImageCapture() {
                 await MediaLibrary.createAssetAsync(image);
                 
                 alert('Image saved successfully!');
+
                 
+                let response = await FS.uploadAsync("http://127.0.0.1:8000/predictionImage", image, {
+                    headers: {
+                      "content-type": "image/jpg",
+                    },
+                    httpMethod: "POST",
+                    uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
+                });
+              
+                console.log(response.headers);
+                console.log(response.body);
+                
+
+
                 setImage(null);
                 navigation.navigate('Market');
             } catch(err) {
@@ -68,7 +84,11 @@ function ImageCapture() {
 
     return(
         <SafeAreaView style={styles.container}>
-            {!image ?
+            {image ?
+                (
+                    <Image source={{uri: image}} style={styles.camera} />
+                )
+                :
                 (
                     <Camera style={ styles.camera } type={Camera.Constants.Type.back} flashMode={flash} ref={cameraRef} >
                         <View style={styles.topMultiButtons}>
@@ -79,10 +99,6 @@ function ImageCapture() {
                             }} />
                         </View>
                     </Camera>
-                )
-                :
-                (
-                    <Image source={{uri: image}} style={styles.camera} />
                 )
             }
             <View>
