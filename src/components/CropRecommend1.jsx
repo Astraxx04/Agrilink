@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text,ImageBackground, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
-const yieldImg = require("../../assets/images/cropField2.jpg");
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+const yieldImg = require("../../assets/images/ai_bg.avif");
 
 const CropRecommend1 = () => {
     const navigation = useNavigation();
 
     const handleImagePress = () => {
-        navigation.navigate('CropRecommend1');
+        navigation.navigate('ImageCapture');
     };
 
     const handleValuesPress = () => {
@@ -15,20 +16,22 @@ const CropRecommend1 = () => {
     };
 
     return(
-        <SafeAreaView style={styles.container}>
-            <View style={styles.innerContainer}>
-                <TouchableOpacity style={styles.card} onPress={handleImagePress}>
-                    <ImageBackground source={yieldImg} style={styles.imageBackground}>
-                        <Text style={styles.title}>Select an Image</Text>
-                    </ImageBackground>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.card} onPress={handleValuesPress}>
-                    <ImageBackground source={yieldImg} style={styles.imageBackground}>
-                        <Text style={styles.title}>Enter Values</Text>
-                    </ImageBackground>
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+        <KeyboardAwareScrollView>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.innerContainer}>
+                    <TouchableOpacity style={styles.card} onPress={handleImagePress}>
+                        <ImageBackground source={yieldImg} style={styles.imageBackground}>
+                            <Text style={styles.title}>Select an Image</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.card} onPress={handleValuesPress}>
+                        <ImageBackground source={yieldImg} style={styles.imageBackground}>
+                            <Text style={styles.title}>Enter Values</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
+        </KeyboardAwareScrollView>
     );
 };
 
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 200,
     },
     innerContainer: {
         width: '80%',
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         width: '100%',
-        height: '20%',
+        height: '30%',
         marginBottom: 60,
         borderRadius: 10,
     },
@@ -63,6 +66,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
         paddingTop: 25,
+        color: '#ffffff'
     },
     imageBackground: {
         flex: 1,

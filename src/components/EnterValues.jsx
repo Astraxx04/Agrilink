@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Modal, Button, Text, ImageBackground, Alert, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
-const yieldImg = require("../../assets/images/cropField2.jpg");
+import { SafeAreaView, ScrollView, StyleSheet, Modal, Button, Text, ImageBackground, Alert, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
 
 const EnterValues = () => {
     const navigation = useNavigation();
@@ -11,9 +12,12 @@ const EnterValues = () => {
         phosphorus: "",
         potassium: "",
         ph: "",
-
+        temperature: "",
+        humidity: "",
+        rainfall: ""
     });
     const [showResult, setShowResult] = useState(false);
+    const [responseData, setResponseData] = useState("");
 
     const handleInputChange = (key, value) => {
         if (/^\d+$/.test(value) || value === "") {
@@ -29,19 +33,38 @@ const EnterValues = () => {
         navigation.navigate("Recommend")
     };
 
-    const handlePredict = () => {
+    const handlePredict = async() => {
+        const mappedInputValues = {
+            "N": inputValues.nitrogen,
+            "P": inputValues.phosphorus,
+            "K": inputValues.potassium,
+            "temperature": inputValues.temperature,
+            "humidity": inputValues.humidity,
+            "ph": inputValues.ph,
+            "rainfall": inputValues.rainfall
+        };
+
         if (Object.values(inputValues).some(value => value === "")) {
             Alert.alert("Note", "Fill in all the fields!");
             return;
         }
         
-        // Perform your prediction logic here
-        // For demonstration purposes, I'm just displaying the input values
-        setShowResult(true);
+        try {
+            console.log(inputValues);
+            const response = await axios.post("http://127.0.0.1:8000/prediction", mappedInputValues);
+            console.log(response.data);
+            setResponseData(response.data);
+            setShowResult(true);
+        } catch (error) {
+            console.error("Error:", error);
+            Alert.alert("Error", "Failed to fetch prediction. Please try again later.");
+        }
     };
 
     return(
+        <KeyboardAwareScrollView>
         <SafeAreaView style={styles.container}>
+            
             <View>
                 <Text style={styles.titleText}>Enter the lab test results</Text>
             </View>
@@ -78,10 +101,35 @@ const EnterValues = () => {
                     inputMode='numeric'
                 />
 
+                <Text style={styles.label}>Temperature:</Text>
+                <TextInput
+                    style={styles.input}
+                    value={inputValues.temperature}
+                    onChangeText={(text) => handleInputChange('temperature', text)}
+                    inputMode='numeric'
+                />
+
+                <Text style={styles.label}>Humidity:</Text>
+                <TextInput
+                    style={styles.input}
+                    value={inputValues.humidity}
+                    onChangeText={(text) => handleInputChange('humidity', text)}
+                    inputMode='numeric'
+                />
+
+                <Text style={styles.label}>Rainfall:</Text>
+                <TextInput
+                    style={styles.input}
+                    value={inputValues.rainfall}
+                    onChangeText={(text) => handleInputChange('rainfall', text)}
+                    inputMode='numeric'
+                />
+
                 <TouchableOpacity style={styles.button} onPress={handlePredict}>
                     <Text style={styles.buttonText}>Predict</Text>
                 </TouchableOpacity>
             </View>
+            
             <Modal
                 visible={showResult}
                 animationType="slide"
@@ -92,6 +140,7 @@ const EnterValues = () => {
                     <View style={styles.modalContent}>
                         <Text style={styles.modalText}>Results</Text>
                         <Text>{JSON.stringify(inputValues)}</Text>
+                        <Text style={styles.responseText}>You can grow: {responseData}</Text>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleResultsSave}>
                                 <Text style={styles.buttonText}>Save</Text>
@@ -104,6 +153,7 @@ const EnterValues = () => {
                 </View>
             </Modal>
         </SafeAreaView>
+        </KeyboardAwareScrollView>
     );
 };
 
@@ -111,10 +161,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 160,
     },
     formContainer: {
         width: '80%',
+        marginBottom: 100
     },
     label: {
         fontSize: 16,
@@ -132,11 +183,11 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         borderRadius: 5,
+        marginBottom: 40,
     },
     buttonContainer: {
         flexDirection: 'row',
         marginTop: 'auto',
-        marginBottom: 20,
     },
     modalButton: {
         padding: 10,
@@ -181,6 +232,11 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 30,
+    },
+    responseText: {
+        fontSize: 24,
+        paddingTop: 60,
+        textTransform: 'capitalize',
     },
 });
 

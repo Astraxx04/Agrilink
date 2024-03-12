@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Alert, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
 const agriLinkLogo = require("../../assets/images/agriLinkLogo.png");
 
 const Login = () => {
@@ -33,43 +34,45 @@ const Login = () => {
     };
 
   return (
-    <SafeAreaView style={styles.container}>
-        <Image source={agriLinkLogo} style={styles.logo} />
-        <View style={styles.formContainer}>
-            <Text style={styles.label}>Email:</Text>
-            <TextInput
-            style={styles.input}
-            value={useremail}
-            onChangeText={(text) => setUserEmail(text)}
-            />
+    <KeyboardAwareScrollView>
+        <SafeAreaView style={styles.container}>
+            <Image source={agriLinkLogo} style={styles.logo} />
+            <View style={styles.formContainer}>
+                <Text style={styles.label}>Email:</Text>
+                <TextInput
+                style={styles.input}
+                value={useremail}
+                onChangeText={(text) => setUserEmail(text)}
+                />
 
-            <Text style={styles.label}>Password:</Text>
-            <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-            />
-            {error && <Text style={styles.errorText}>{error}</Text>}
+                <Text style={styles.label}>Password:</Text>
+                <TextInput
+                style={styles.input}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                secureTextEntry
+                />
+                {error && <Text style={styles.errorText}>{error}</Text>}
 
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={toSignUpPage}>
-                <Text style={styles.signup}>New User? Sign Up here</Text>
-            </TouchableOpacity>
-            
-        </View>
-    </SafeAreaView>
+                <TouchableOpacity onPress={toSignUpPage}>
+                    <Text style={styles.signup}>New User? Sign Up here</Text>
+                </TouchableOpacity>
+                
+            </View>
+        </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 140,
     },
     formContainer: {
         width: '80%',

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, ImageBackground, View, Image } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
+
 const recommendationImg = require("../../assets/images/cropField2.jpg");
 const yieldImg = require("../../assets/images/cropField1.jpg");
 const loanImg = require("../../assets/images/loan.jpg");
@@ -21,6 +23,7 @@ const Recommendation = () => {
     };
 
     return (
+        <KeyboardAwareScrollView>
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.card} onPress={handleRecommendationPress}>
                 <ImageBackground source={recommendationImg} style={styles.imageBackground}>
@@ -43,6 +46,7 @@ const Recommendation = () => {
                 </ImageBackground>
             </TouchableOpacity>
         </SafeAreaView>
+        </KeyboardAwareScrollView>
     );
 }
 
@@ -50,6 +54,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        marginTop: 60
     },
     card: {
         backgroundColor: 'tomato',
@@ -63,7 +68,8 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         width: '80%',
-        height: '24%',
+        height: '45%',
+        top: 40,
         marginTop: 40,
         borderRadius: 10,
     },

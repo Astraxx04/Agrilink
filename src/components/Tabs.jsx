@@ -32,7 +32,8 @@ function Tabs({ weather }) {
                         />
                     ),
                     tabBarStyle: {
-                        backgroundColor: '#6b8e2f'
+                        backgroundColor: '#6b8e2f',
+                        paddingTop: 10,
                     },
                     headerShown: false,
                     headerStyle: {
@@ -53,8 +54,10 @@ function Tabs({ weather }) {
                         />
                     ),
                     tabBarStyle: {
-                        backgroundColor: '#38261c'
+                        backgroundColor: '#38261c',
+                        paddingTop: 10,
                     },
+                    headerShown: false,
                     headerStyle: {
                         backgroundColor: '#f47328',
                     }
@@ -73,7 +76,8 @@ function Tabs({ weather }) {
                         />
                     ),
                     tabBarStyle: {
-                        backgroundColor: '#095c85'
+                        backgroundColor: '#095c85',
+                        paddingTop: 10,
                     },
                     headerShown: false,
                     headerStyle: {
@@ -94,7 +98,8 @@ function Tabs({ weather }) {
                         />
                     ),
                     tabBarStyle: {
-                        backgroundColor: '#095c85'
+                        backgroundColor: '#095c85',
+                        paddingTop: 10,
                     },
                     headerShown: false,
                     headerStyle: {
@@ -111,12 +116,14 @@ function Tabs({ weather }) {
                         <Feather
                             name={'database'}
                             size={25}
-                            color={focused ? 'black' : 'white'}
+                            color={focused ? 'tomato' : 'white'}
                         />
                     ),
                     tabBarStyle: {
-                        backgroundColor: '#095c85'
+                        backgroundColor: '#095c85',
+                        paddingTop: 10,
                     },
+                    headerShown: false,
                     headerStyle: {
                         backgroundColor: '#81d2e5',
                     },

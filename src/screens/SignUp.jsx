@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Alert, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
 const agriLinkLogo = require("../../assets/images/agriLinkLogo.png");
 
 const SignUp = () => {
@@ -76,62 +77,64 @@ const SignUp = () => {
     };
 
   return (
-    <SafeAreaView style={styles.container}>
-        <Image source={agriLinkLogo} style={styles.logo} />
-        <View style={styles.formContainer}>
-            <Text style={styles.label}>Name:</Text>
-            <TextInput
-            style={styles.input}
-            placeholder='Enter name'
-            value={userDetails.name}
-            onChangeText={(text) => updateUserDetails({...userDetails, name: text})}
-            />
+    <KeyboardAwareScrollView>
+        <SafeAreaView style={styles.container}>
+            <Image source={agriLinkLogo} style={styles.logo} />
+            <View style={styles.formContainer}>
+                <Text style={styles.label}>Name:</Text>
+                <TextInput
+                style={styles.input}
+                placeholder='Enter name'
+                value={userDetails.name}
+                onChangeText={(text) => updateUserDetails({...userDetails, name: text})}
+                />
 
-            <Text style={styles.label}>Email:</Text>
-            <TextInput
-            style={styles.input}
-            placeholder='Enter email'
-            value={userDetails.email}
-            onChangeText={(text) => setUserDetails({...userDetails, email: text})}
-            />
+                <Text style={styles.label}>Email:</Text>
+                <TextInput
+                style={styles.input}
+                placeholder='Enter email'
+                value={userDetails.email}
+                onChangeText={(text) => setUserDetails({...userDetails, email: text})}
+                />
 
-            <Text style={styles.label}>Mobile:</Text>
-            <TextInput
-            style={styles.input}
-            placeholder='Enter moble'
-            value={userDetails.mobile}
-            onChangeText={(text) => setUserDetails({...userDetails, mobile: text})}
-            />
+                <Text style={styles.label}>Mobile:</Text>
+                <TextInput
+                style={styles.input}
+                placeholder='Enter moble'
+                value={userDetails.mobile}
+                onChangeText={(text) => setUserDetails({...userDetails, mobile: text})}
+                />
 
-            <Text style={styles.label}>Password:</Text>
-            <TextInput
-            style={styles.input}
-            placeholder='Enter password'
-            value={userDetails.password}
-            onChangeText={(text) => setUserDetails({...userDetails, password: text})}
-            secureTextEntry
-            />
+                <Text style={styles.label}>Password:</Text>
+                <TextInput
+                style={styles.input}
+                placeholder='Enter password'
+                value={userDetails.password}
+                onChangeText={(text) => setUserDetails({...userDetails, password: text})}
+                secureTextEntry
+                />
 
-            <Text style={styles.label}>Confirm Password:</Text>
-            <TextInput
-            style={styles.input}
-            placeholder='Enter confirm password'
-            value={userDetails.confirmPassword}
-            onChangeText={(text) => setUserDetails({...userDetails, confirmPassword: text})}
-            secureTextEntry
-            />
+                <Text style={styles.label}>Confirm Password:</Text>
+                <TextInput
+                style={styles.input}
+                placeholder='Enter confirm password'
+                value={userDetails.confirmPassword}
+                onChangeText={(text) => setUserDetails({...userDetails, confirmPassword: text})}
+                secureTextEntry
+                />
 
-            {error && <Text style={styles.errorText}>{error}</Text>}
+                {error && <Text style={styles.errorText}>{error}</Text>}
 
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={toLoginPage}>
-                <Text style={styles.login}>Existing User? Login here</Text>
-            </TouchableOpacity>
-        </View>
-    </SafeAreaView>
+                <TouchableOpacity onPress={toLoginPage}>
+                    <Text style={styles.login}>Existing User? Login here</Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        marginTop: 60,
     },
     formContainer: {
         width: '80%',
