@@ -1,101 +1,72 @@
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 import axios from 'axios';
-const ChatBot = () => {
-    const [data, setData] = useState([]);
-    const apiKey = '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'
-    const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
-    const [textInput, setTextInput] = useState('');
-    const handleSend = async () => {
-        const prompt = textInput
-        const response = await axios.post(apiUrl, {
-            prompt: prompt,
-            max_tokens: 1024,
-            temperature: 0.5,
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
-            }
-        }).catch((error) => {
-            console.error('AxiosError:', error.response.data);
-            throw error;
-        });
-        const text = response.data.choices[0].text;
-        setData([...data, { type: 'user', 'text': textInput }, { type: 'bot', 'text': text }]);
-        setTextInput('');
-    }
-    return (
-        <View style={styles.container}>
-            <FlatList
-                data={data}
-                keyExtractor={(item, index) => index.toString()}
-                style={styles.body}
-                renderItem={({ item }) => (
-                    <View style={{ flexDirection: 'row', padding: 10 }}>
-                        <Text style={{ fontWeight: 'bold', color: item.type === 'user' ? 'green' : 'red' }}>
-                            {item.type === 'user' ? 'Ninza' : 'Bot'}
-                        </Text>
-                        <Text style={[styles.bot, { color: item.type === 'user' ? 'green' : 'red' }]}>
-                            {item.text}
-                        </Text>
-                    </View>
-                )}
-            />
-            <TextInput
-                style={styles.input}
-                value={textInput}
-                onChangeText={text => setTextInput(text)}
-                placeholder="Ask me anything"
-            />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={handleSend}
-            >
-                <Text style={styles.buttonText}>Let's go</Text>
-            </TouchableOpacity>
-        </View>
-    )
 
-}
+const ChatBot = () => {
+  const [messages, setMessages] = useState([]);
+  const YOUR_CHATGPT_API_KEY = '';
+
+  const handleSend = async (newMessages = []) => {
+    try {
+      const userMessage = newMessages[0];
+      setMessages(previousMessages => GiftedChat.append(previousMessages, userMessage));
+
+      const messageText = userMessage.text.toLowerCase();
+      const keywords = ['soil', 'crop', 'agriculture'];
+
+      if (!keywords.some(keyword => messageText.includes(keyword))) {
+        const botMessage = {
+          _id: new Date().getTime() + 1,
+          text: "Sorry, I don't have any knowledge about this",
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'AgriBot',
+          },
+        };
+        setMessages(previousMessages => GiftedChat.append(previousMessages, botMessage));
+        return;
+      }
+
+      const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
+      const response = await axios.post(
+        apiUrl,
+        {
+          prompt: `get the type of crop that can be grown on ${messageText}`,
+          max_tokens: 1200,
+          temperature: 0.2,
+          n: 1,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${YOUR_CHATGPT_API_KEY}`,
+          },
+        }
+      );
+
+      const crops = response.data.choices[0].text.trim();
+      const botMessage = {
+        _id: new Date().getTime() + 1,
+        text: crops,
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'AgriBot',
+        },
+      };
+      setMessages(previousMessages => GiftedChat.append(previousMessages, botMessage));
+    } catch (error) {
+        console.log(error.response || error);
+    }
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      <GiftedChat messages={messages} onSend={newMessages => handleSend(newMessages)} user={{ _id: 1 }} />
+    </View>
+  );
+};
 
 export default ChatBot;
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    body: {
-        backgroundColor: '#fffcc9',
-        width: '102%',
-        margin: 10
-    },
-    bot: {
-        fontSize: 16
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: 'black',
-        width: '90%',
-        height: 60,
-        marginBottom: 10,
-        borderRadius: 10,
-    },
-    button: {
-        backgroundColor: 'white',
-        width: '90%',
-        height: 60,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10
-    },
-    buttonText: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: 'blue',
-
-    }
-});
