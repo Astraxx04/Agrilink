@@ -51,7 +51,7 @@ const EnterValues = () => {
         
         try {
             console.log(inputValues);
-            const response = await axios.post("http://127.0.0.1:8000/prediction", mappedInputValues);
+            const response = await axios.post("http://127.0.0.1:8000/predictionValues", mappedInputValues);
             console.log(response.data);
             setResponseData(response.data);
             setShowResult(true);

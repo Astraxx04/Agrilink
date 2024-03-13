@@ -11,6 +11,7 @@ function ImageCapture() {
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
     const [image, setImage] = useState(null);
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+    const [imageFromCamera, setImageFromCamera] = useState(false);
     const cameraRef = useRef(null);
 
     const navigation = useNavigation();
@@ -38,6 +39,7 @@ function ImageCapture() {
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
+            setImageFromCamera(false);
         }
     };
 
@@ -47,6 +49,7 @@ function ImageCapture() {
                 const data = await cameraRef.current.takePictureAsync();
                 console.log(data);
                 setImage(data.uri);
+                setImageFromCamera(true);
             } catch(err) {
                 console.log(err);
             }
@@ -56,26 +59,27 @@ function ImageCapture() {
     const saveImage = async () => {
         if(image) {
             try {
-                await MediaLibrary.createAssetAsync(image);
-                
-                alert('Image saved successfully!');
+                if(imageFromCamera) {
+                    await MediaLibrary.createAssetAsync(image);
+                    alert('Image saved successfully!');
+                } else {
+                    alert('Image selected successfully!');
+                }
 
-                
-                let response = await FS.uploadAsync("http://127.0.0.1:8000/predictionImage", image, {
-                    headers: {
-                      "content-type": "image/jpg",
-                    },
-                    httpMethod: "POST",
-                    uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
-                });
-              
-                console.log(response.headers);
-                console.log(response.body);
-                
-
-
+                try {
+                    let response = await FS.uploadAsync("http://127.0.0.1:8000/predictionImage", image, {
+                        headers: {
+                        "content-type": "image/jpg",
+                        },
+                        httpMethod: "POST",
+                        uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
+                    });
+                    console.log(response.body);
+                } catch(error){
+                    console.log(error);
+                }
                 setImage(null);
-                navigation.navigate('Market');
+                navigation.navigate('CropRecommend1');
             } catch(err) {
                 console.log(err);
             }
