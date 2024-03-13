@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import axios from 'axios';
 
@@ -63,10 +63,16 @@ const ChatBot = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <GiftedChat messages={messages} onSend={newMessages => handleSend(newMessages)} user={{ _id: 1 }} />
-    </View>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+});
 
 export default ChatBot;
