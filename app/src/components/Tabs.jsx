@@ -5,7 +5,6 @@ import ChatBot from './ChatBot';
 import Profile from './Profile';
 import Recommendation from './Recommendation';
 import Market from './Market';
-import ResultsPage from './ResultsPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -130,7 +129,7 @@ function Tabs({ weather }) {
                     },
                 }}
             >
-                {() => <ResultsPage />}
+                {() => <Recommendation />}
             </Tab.Screen>
         </Tab.Navigator>
     )
