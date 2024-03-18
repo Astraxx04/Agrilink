@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { SafeAreaView, StyleSheet, View, Image, Text, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Image, Text, Button, Alert } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,6 +12,7 @@ function ImageCapture() {
     const [image, setImage] = useState(null);
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
     const [imageFromCamera, setImageFromCamera] = useState(false);
+    const [predictionResults, setPredictionResults] = useState({});
     const cameraRef = useRef(null);
 
     const navigation = useNavigation();
@@ -56,7 +57,7 @@ function ImageCapture() {
         }
     };
 
-    const saveImage = async () => {
+    const saveImage = async() => {
         if(image) {
             try {
                 if(imageFromCamera) {
@@ -75,11 +76,13 @@ function ImageCapture() {
                         uploadType: FS.FileSystemUploadType.BINARY_CONTENT,
                     });
                     console.log(response.body);
+                    navigation.navigate('ResultsPage', { results: response.body });
                 } catch(error){
                     console.log(error);
+                    Alert.error(error);
+                    navigation.navigate('CropRecommend1');
                 }
                 setImage(null);
-                navigation.navigate('CropRecommend1');
             } catch(err) {
                 console.log(err);
             }
@@ -109,7 +112,7 @@ function ImageCapture() {
                 {image ? 
                 <View style={styles.multiButtons}>
                     <CustomButton title={'Retake'} icon="repeat" color='#f1f1f1' onPress={() => setImage(null)} />
-                    <CustomButton title={'Save'} icon="save" color='#f1f1f1' onPress={saveImage} />
+                    <CustomButton title={'Select'} icon="save" color='#f1f1f1' onPress={saveImage} />
                 </View>
                 :
                 <View style={styles.picButton}>

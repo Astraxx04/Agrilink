@@ -7,6 +7,7 @@ import Tabs from './src/components/Tabs';
 import CropRecommend1 from './src/components/CropRecommend1';
 import EnterValues from './src/components/EnterValues';
 import ImageCapture from './src/components/ImageCapture';
+import ResultsPage from './src/components/ResultsPage';
 
 
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="CropRecommend1" component={CropRecommend1} options={{ headerShown: false }} />
         <Stack.Screen name="EnterValues" component={EnterValues} options={{ headerShown: false }} />
         <Stack.Screen name="ImageCapture" component={ImageCapture} options={{ headerShown: false }} />
+        <Stack.Screen name="ResultsPage" component={ResultsPage} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

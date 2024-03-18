@@ -157,7 +157,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 24,
         paddingTop: 25,
-        fontWeight: 700,
         alignSelf: 'center',
     },
     section: {
@@ -192,7 +191,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: 'bold',
     },
     description: {
         fontSize: 14,
