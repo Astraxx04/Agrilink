@@ -19,7 +19,7 @@ const Recommendation = () => {
     };
 
     const handleLoanPress = () => {
-        navigation.navigate('Profile');
+        navigation.navigate('MapViews');
     };
 
     return (

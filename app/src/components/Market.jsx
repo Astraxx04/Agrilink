@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, ScrollView, TouchableOpacity, View, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-const imageImg = require("../../assets/images/cropField2.jpg"); 
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import cattleImage1 from '../../assets/cattle/cattle1.jpg';
 import cattleImage2 from '../../assets/cattle/cattle2.jpg';
@@ -17,7 +16,6 @@ import crop3 from '../../assets/crop/crop3.jpg';
 import equipment1 from '../../assets/Equipment/equipment1.jpg';
 import equipment2 from '../../assets/Equipment/equipment2.jpg';
 import equipment3 from '../../assets/Equipment/equipment3.jpg';
-import equipment4 from '../../assets/Equipment/equipment4.jpg';
 
 const cattleImages = [cattleImage1, cattleImage2, cattleImage3, cattleImage4];
 const FertilizersImages = [Fertilizer1, Fertilizer2,Fertilizer3];
@@ -31,11 +29,11 @@ const Market = () => {
     const[crop,setCrop]=useState([]);
     const[fertilizer,setFertilizer]=useState([]);
     const[cattle,setCattle]=useState([]);
-    useEffect(()=>{
 
+    useEffect(()=>{
         async function FetchedData(){
             try{
-                const getData=await axios.get('http://192.168.0.101:5000/getCrop');
+                const getData=await axios.get('http://localhost:5000/api/v1/getCrop');
                 setCrop(getData.data);
                 console.log(getData.data[1]);
                 console.log(crop);
@@ -47,7 +45,7 @@ const Market = () => {
         }
         async function FetchedCropData(){
             try{
-                const getData=await axios.get('http://192.168.0.101:5000/getEquipment');
+                const getData=await axios.get('http://localhost:5000/api/v1/getEquipment');
                 setEquipment(getData.data);
                 console.log(getData.data[1]);
                 console.log(equipment);
@@ -59,7 +57,7 @@ const Market = () => {
         }
         async function FetchedFertilizerData(){
             try{
-                const getData=await axios.get('http://192.168.0.101:5000/getFertilizer');
+                const getData=await axios.get('http://localhost:5000/api/v1/getFertilizer');
                 setFertilizer(getData.data);
                 console.log(getData.data[1]);
                 console.log(fertilizer);
@@ -71,7 +69,7 @@ const Market = () => {
         }
         async function FetchedCattleData(){
             try{
-                const getData=await axios.get('http://192.168.0.101:5000/getCattle');
+                const getData=await axios.get('http://localhost:5000/api/v1/getCattle');
                 setCattle(getData.data);
                 console.log(getData.data[1]);
                 console.log(cattle);
@@ -82,12 +80,10 @@ const Market = () => {
            
         }
         
-
         FetchedData();
         FetchedCropData();
         FetchedFertilizerData();
         FetchedCattleData();
-         
     },[])
     return(
         <SafeAreaView style={styles.container}>
@@ -105,8 +101,8 @@ const Market = () => {
                                         <View style={styles.card}>
                                         <Image source={EquipmentImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Owner Name : {item.name}</Text>
-                                            <Text style={styles.description}>Material : {item.material}</Text>
+                                            <Text style={styles.title}>Material : {item.material}</Text>
+                                            <Text style={styles.description}>Owner : {item.name}</Text>
                                             <Text style={styles.description}>Price : {item.price}</Text>
                                             <Text style={styles.description}>Phone : {item.Phone}</Text>
                                         </View>
@@ -126,8 +122,8 @@ const Market = () => {
                                         <View style={styles.card}>
                                         <Image source={CropImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Owner Name : {item.name}</Text>
-                                            <Text style={styles.description}>Crop : {item.material}</Text>
+                                            <Text style={styles.title}>Crop : {item.material}</Text>
+                                            <Text style={styles.description}>Owner : {item.name}</Text>
                                             <Text style={styles.description}>Price : {item.price}</Text>
                                             <Text style={styles.description}>Phone : {item.phone}</Text>
                                         </View>
@@ -146,8 +142,8 @@ const Market = () => {
                                         <View style={styles.card}>
                                         <Image source={FertilizersImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Owner Name : {item.name}</Text>
-                                            <Text style={styles.description}>{item.material}</Text>
+                                            <Text style={styles.title}>Type : {item.material}</Text>
+                                            <Text style={styles.description}>Owner : {item.name}</Text>
                                             <Text style={styles.description}>Price : {item.price}</Text>
                                             <Text style={styles.description}>Phone : {item.phone}</Text>
                                         </View>
@@ -168,8 +164,8 @@ const Market = () => {
         
                                         <Image source={cattleImages[index % 4]}style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Owner Name : {item.name}</Text>
-                                            <Text style={styles.description}>Type : {item.type}</Text>
+                                            <Text style={styles.title}>Breed : {item.type}</Text>
+                                            <Text style={styles.description}>Owner : {item.name}</Text>
                                             <Text style={styles.description}>Price :  {item.price}</Text>
                                             <Text style={styles.description}>Phone : {item.phone}</Text>
                                         </View>
@@ -233,10 +229,12 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     title: {
-        fontSize: 16
+        fontSize: 16,
+        textTransform: 'capitalize',
     },
     description: {
         fontSize: 14,
+        textTransform: 'capitalize',
     },
     floatingButton: {
         alignItems: 'center', 

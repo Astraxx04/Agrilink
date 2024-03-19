@@ -1,96 +1,63 @@
 
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity, ImageBackground, View, Image } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-const imageImg = require("../../assets/images/cropField2.jpg"); 
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-export default function Options(){
+import { SafeAreaView, StyleSheet, Text, ScrollView, TouchableOpacity, ImageBackground, View, } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+const Options = () => {
     const navigation=useNavigation();
     return(
         <SafeAreaView style={styles.container}>
-        <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
-            <View style={styles.pageScroll}>
-                <Text style={styles.text}>
-                        What do you want to sell ?
-                </Text>
-                <View style={styles.section}>
-                    <Text style={styles.sectionText}>Equipments</Text>
-                    <View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => {navigation.navigate('PostData'); }}>
-                    <View style={styles.card}>
-                                    <Image source={require('../../assets/Equipment/equipment1.jpg')} style={styles.image} />
+            <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
+                <View style={styles.pageScroll}>
+                    <Text style={styles.text}>What do you want to sell ?</Text>
+
+                    <View style={styles.section}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('PostData'); }}>
+                            <View style={styles.card}>
+                                <ImageBackground source={require('../../assets/Equipment/equipment1.jpg')} style={styles.image} >
                                     <View style={styles.textContainer}>
-                                        
+                                        <Text style={styles.sectionText}>Equipments</Text>
                                     </View>
-                                </View>
-                                </TouchableOpacity>
-                        </ScrollView>
+                                </ImageBackground>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.section}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('PostCrops'); }}>
+                            <View style={styles.card}>
+                                <ImageBackground source={require('../../assets/crop/crop2.jpg')} style={styles.image} >
+                                    <View style={styles.textContainer}>
+                                        <Text style={styles.sectionText}>Crops</Text>
+                                    </View>
+                                </ImageBackground>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.section}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('PostFertilizers'); }}>
+                            <View style={styles.card}>
+                                <ImageBackground source={require('../../assets/Fertlizers/Fertilizer2.jpg')} style={styles.image} >
+                                    <View style={styles.textContainer}>
+                                        <Text style={styles.sectionText}>Fertilizers</Text>
+                                    </View>
+                                </ImageBackground>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.section}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('PostCattle'); }}>
+                            <View style={styles.card}>
+                                <ImageBackground source={require('../../assets/cattle/cattle2.jpg')} style={styles.image} >
+                                    <View style={styles.textContainer}>
+                                        <Text style={styles.sectionText}>Cattle</Text>
+                                    </View>
+                                </ImageBackground>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.section}>
-                    <Text style={styles.sectionText}>Crops</Text>
-                    <View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => {navigation.navigate('PostCrops'); }}>
-                    <View style={styles.card}>
-                                    <Image source={require('../../assets/crop/crop2.jpg')} style={styles.image} />
-                                    <View style={styles.textContainer}>
-                                        
-                                    </View>
-                                </View>
-                                </TouchableOpacity>
-                        </ScrollView>
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <Text style={styles.sectionText}>Fertilizers</Text>
-                    <View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => {navigation.navigate('PostFertilizers'); }}>
-                    <View style={styles.card}>
-                                    <Image source={require('../../assets/Fertlizers/Fertilizer2.jpg')} style={styles.image} />
-                                    <View style={styles.textContainer}>
-                                        
-                                    </View>
-                                </View>
-                                </TouchableOpacity>
-                        </ScrollView>
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <Text style={styles.sectionText}>Cattle</Text>
-                    <View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => {navigation.navigate('PostCattle'); }}>
-                    <View style={styles.card}>
-                                    <Image source={require('../../assets/cattle/cattle2.jpg')} style={styles.image} />
-                                    <View style={styles.textContainer}>
-                                        
-                                    </View>
-                                </View>
-                                </TouchableOpacity>
-                        </ScrollView>
-                    </View>
-                </View>
-                <View style={styles.section}>
-                    <Text style={styles.sectionText}>Camera</Text>
-                    <View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity onPress={() => {navigation.navigate('MapViews'); }}>
-                    <View style={styles.card}>
-                                    <Image source={require('../../assets/area.jpg')} style={styles.image} />
-                                    <View style={styles.textContainer}>
-                                        
-                                    </View>
-                                </View>
-                                </TouchableOpacity>
-                        </ScrollView>
-                    </View>
-                </View>
-            </View>
-        </ScrollView>
-    </SafeAreaView>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -102,15 +69,16 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         paddingTop: 60,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontWeight: 'bold',
     },
     section: {
         paddingTop: 20
     },
     sectionText: {
-        marginLeft: 120,
         fontSize: 20,
-        paddingVertical: 10,
+        color: 'white',
+        fontWeight: '900',
     },
     pageScroll: {
         paddingBottom: 40,
@@ -124,13 +92,12 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         elevation: 5,
         overflow: 'hidden',
-        width: 300,
-        height:200,
-        marginLeft: 7,
+        width: 320,
+        height: 200,
     },
     image: {
         width: '100%',
-        height: 160,
+        height: '100%',
     },
     textContainer: {
         padding: 10,
@@ -141,15 +108,6 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 14,
     },
-    floatingButton: {
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        width: 60,
-        height: 60, 
-        position: 'absolute', 
-        bottom: 40, 
-        right: 20, 
-        backgroundColor: '#00ab41', 
-        borderRadius: 200, 
-    },
 });
+
+export default Options;

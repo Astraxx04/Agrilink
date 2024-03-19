@@ -1,17 +1,17 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Modal, Button, Text, ImageBackground, Alert, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
-export default function PostCattle(){
+
+const PostFertilizers = () => {
     const navigation=useNavigation();
-    const [name,setName]=useState('');
-    const[material,setMaterial]=useState('');
-    const [price,setPrice]=useState('');
-    const[phone,setPhone]=useState('');
+
+    const [name, setName]=useState('');
+    const[material, setMaterial]=useState('');
+    const [price, setPrice]=useState('');
+    const[phone, setPhone]=useState('');
+
     function handleNameChange(name){
         setName(name);
     }
@@ -26,68 +26,63 @@ export default function PostCattle(){
     }
    
     async function PostData(){
-
         try{
-            const data=await axios.post('http://192.168.0.101:5000/postFertilizer', {
-            name,
-            material,
-            price,
-            phone
-            
-          })
-          console.log('Inserted successfully',data.data);
-          navigation.navigate('Market');
+            const data=await axios.post('http://localhost:5000/api/v1/postFertilizer', {
+                name,
+                material,
+                price,
+                phone
+            })
+            console.log('Inserted successfully',data.data);
+            navigation.navigate('Market');
         }
         catch(err){
             console.log(err);
         }
-       
     }
     return(
         <KeyboardAwareScrollView>
-        <SafeAreaView style={styles.container}>
-            
-            <View>
-                <Text style={styles.titleText}>Enter the Details</Text>
-            </View>
-            <View style={styles.formContainer}>
-                <Text style={styles.label}>Name : </Text>
-                <TextInput
-                    style={styles.input}
-                    value={name}
-                    onChangeText={handleNameChange}
-                    inputMode='text'
-                />
+            <SafeAreaView style={styles.container}>
+                <View>
+                    <Text style={styles.titleText}>Enter the Details</Text>
+                </View>
+                <View style={styles.formContainer}>
+                    <Text style={styles.label}>Name : </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={name}
+                        onChangeText={handleNameChange}
+                        inputMode='text'
+                    />
 
-                <Text style={styles.label}>Material Type : </Text>
-                <TextInput
-                    style={styles.input}
-                    value={material}
-                    onChangeText={handleMaterialChange}
-                    inputMode='text'
-                />
+                    <Text style={styles.label}>Material Type : </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={material}
+                        onChangeText={handleMaterialChange}
+                        inputMode='text'
+                    />
 
-                <Text style={styles.label}>Price : </Text>
-                <TextInput
-                    style={styles.input}
-                    value={price}
-                    onChangeText={handlePriceChange}
-                    inputMode='text'
-                />
-                <Text style={styles.label}>Phone : </Text>
-                <TextInput
-                    style={styles.input}
-                    value={phone}
-                    onChangeText={handlePhoneChange}
-                    inputMode='text'
-                />
+                    <Text style={styles.label}>Price : </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={price}
+                        onChangeText={handlePriceChange}
+                        inputMode='numeric'
+                    />
+                    <Text style={styles.label}>Phone : </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={phone}
+                        onChangeText={handlePhoneChange}
+                        inputMode='numeric'
+                    />
 
-            
-                <TouchableOpacity style={styles.button} onPress={PostData}>
-                    <Text style={styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+                    <TouchableOpacity style={styles.button} onPress={PostData}>
+                        <Text style={styles.buttonText}>Submit</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
         </KeyboardAwareScrollView>
     )
 }
@@ -175,3 +170,4 @@ const styles = StyleSheet.create({
     },
 });
 
+export default PostFertilizers;

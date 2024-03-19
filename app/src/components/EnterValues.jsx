@@ -50,11 +50,12 @@ const EnterValues = () => {
         }
         
         try {
-            console.log(inputValues);
             const response = await axios.post("http://127.0.0.1:8000/predictionValues", mappedInputValues);
             console.log(response.data);
-            setResponseData(response.data);
-            setShowResult(true);
+            const finalPredJson = JSON.parse(response.data.final_pred);
+            const finalResponse = { final_pred: finalPredJson };
+            console.log(finalResponse);
+            navigation.navigate('ResultsPage', { results: JSON.stringify(finalResponse) });
         } catch (error) {
             console.error("Error:", error);
             Alert.alert("Error", "Failed to fetch prediction. Please try again later.");
