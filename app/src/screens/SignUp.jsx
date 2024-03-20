@@ -4,6 +4,8 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
 const agriLinkLogo = require("../../assets/images/agriLinkLogo.png");
+import 'react-native-get-random-values';
+const { v4: uuidv4 } = require('uuid');
 
 const SignUp = () => {
     const [userDetails, setUserDetails] = useState({
@@ -12,6 +14,7 @@ const SignUp = () => {
         mobile: "",
         password: "",
         confirmPassword: "",
+        user_id: "",
     });
     const [error, setError] = useState(null);
 
@@ -24,7 +27,12 @@ const SignUp = () => {
         }));
     };
 
+    function generateUserId() {
+        return uuidv4();
+    }
+
     const handleSignUp = async () => {
+
         if (userDetails.name.trim() === "") {
             setError("Please enter your name");
             return;
@@ -56,14 +64,16 @@ const SignUp = () => {
         }
 
         try {
-            console.log(userDetails);
+
+            const userId = generateUserId();
+            userDetails.user_id = userId;
             // const response = await axios.post("", {
 
             // });
             response = " ";
             if (response) {
                 console.log('SignUp successful', response.data);
-                Alert.alert("Success", "You are signed up successfully!");
+                // Alert.alert("Success", "You are signed up successfully!");
                 navigation.navigate('Login');
             }
         } catch (error) {

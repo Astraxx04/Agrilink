@@ -12,7 +12,6 @@ const UserData = () => {
     async function getAllCropResults() {
         const response = await axios.get('http://localhost:5000/api/v1/getAllCropResults');
         setCropResults(response.data);
-        console.log(response.data);
     };
 
     async function getAllLandResults() {
@@ -38,7 +37,7 @@ const UserData = () => {
                             <Feather
                                 name="rotate-ccw"
                                 size={24}
-                                color="red"
+                                color="black"
                             />
                         </TouchableOpacity>
                     </View>
@@ -116,7 +115,7 @@ const UserData = () => {
                                                 <DataTable.Cell style={styles.cell}><Text>{landResult.state}</Text></DataTable.Cell>
                                             </DataTable.Row> 
                                             <DataTable.Row> 
-                                                <DataTable.Cell style={styles.cell}><Text>Area:</Text></DataTable.Cell> 
+                                                <DataTable.Cell style={styles.cell}><Text>Total Area:</Text></DataTable.Cell> 
                                                 <DataTable.Cell style={styles.cell}><Text>{landResult.area}</Text></DataTable.Cell>
                                             </DataTable.Row> 
                                             <DataTable.Row> 
@@ -124,7 +123,7 @@ const UserData = () => {
                                                 <DataTable.Cell style={styles.cell}><Text>{landResult.type}</Text></DataTable.Cell>
                                             </DataTable.Row> 
                                             <DataTable.Row> 
-                                                <DataTable.Cell style={styles.cell}><Text>Estimate:</Text></DataTable.Cell> 
+                                                <DataTable.Cell style={styles.cell}><Text>Total Estimate:</Text></DataTable.Cell> 
                                                 <DataTable.Cell style={styles.cell}><Text>{landResult.estimate}</Text></DataTable.Cell>
                                             </DataTable.Row>
                                         </DataTable>
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     card: {
-        backgroundColor: 'tomato',
+        backgroundColor: '#39ad48',
         shadowColor: '#000',
         shadowOffset: {
           width: 2,
