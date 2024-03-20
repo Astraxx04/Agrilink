@@ -23,7 +23,6 @@ const LandDetail = ({route}) => {
         async function DeterminePrice(){
             try {
                 const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${markers[0].latitude}&lon=${markers[0].longitude}&zoom=10&format=json`);
-                console.log(response.data.importance);
                 setImportance(response.data.importance);
                 setRank(response.data.place_rank);
                 setCity(response.data.address.city);
@@ -58,6 +57,26 @@ const LandDetail = ({route}) => {
     };
 
     const saveDetails = () => {
+        const saveDetailsData = {
+            location: location,
+            district: district,
+            state: state,
+            area: area.toFixed(2),
+            type: type,
+            estimate: (price*(area.toFixed(2))).toFixed(2),
+        };
+        console.log(saveDetailsData);
+        async function PostData(){
+            try{
+                const data = await axios.post('http://localhost:5000/api/v1/postLandResult', saveDetailsData);
+                console.log('Inserted successfully', data.data);
+                navigation.navigate('Tabs');
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        PostData();
         navigation.navigate("Tabs");
     };
    
@@ -100,8 +119,12 @@ const LandDetail = ({route}) => {
                             <DataTable.Cell>{importance.toFixed(3)}</DataTable.Cell> 
                         </DataTable.Row> :<></>}
                         {area ? <DataTable.Row> 
-                            <DataTable.Cell>Area per sq feet:</DataTable.Cell> 
+                            <DataTable.Cell>Area in sq. feet:</DataTable.Cell> 
                             <DataTable.Cell>{area.toFixed(3)}</DataTable.Cell> 
+                        </DataTable.Row> :<></>}
+                        {price ? <DataTable.Row> 
+                            <DataTable.Cell>Price per sq. feet:</DataTable.Cell> 
+                            <DataTable.Cell>{price.toFixed(2)}</DataTable.Cell> 
                         </DataTable.Row> :<></>}
                         {type ? <DataTable.Row> 
                             <DataTable.Cell>Type:</DataTable.Cell> 
@@ -137,7 +160,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 24,
         alignSelf: 'center',
-        marginBottom:30,
+        marginBottom: 20,
         fontWeight: "600",
     },
     label: {
@@ -182,7 +205,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         marginTop: 'auto',
-        marginBottom: 30,
+        marginBottom: 20,
     },
     modalButton: {
         padding: 10,

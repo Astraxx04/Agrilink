@@ -8,4 +8,4 @@ const EquipmentSchema = mongoose.Schema({
     Phone:Number
 })
 
-module.exports = mongoose.model('Equipment', EquipmentSchema);
+module.exports = mongoose.model('EquipmentData', EquipmentSchema);

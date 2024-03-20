@@ -21,7 +21,7 @@ const Login = () => {
         response = true;
         if (response) {
             console.log('Login successful', response.data);
-            Alert.alert("Success", "You are logged in successfully!");
+            // Alert.alert("Success", "You are logged in successfully!");
             navigation.navigate('Tabs');
         }
     } catch (error) {

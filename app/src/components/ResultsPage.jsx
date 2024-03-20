@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Text,ImageBackground, TextInput, TouchableOpa
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
 
 const ResultsPage = () => {
     const navigation = useNavigation();
@@ -15,7 +16,28 @@ const ResultsPage = () => {
     };
 
     const saveDetails = () => {
-        
+        const saveDetailsData = {
+            crop: result_object["final_pred"]["Crops"],
+            fertilizer: result_object["final_pred"]["Fertilisers required"],
+            cost: result_object["final_pred"]["Cost of cultivation"],
+            revenue: result_object["final_pred"]["Expected revenues"],
+            quantity: result_object["final_pred"]["Quantity of seeds per hectare"],
+            duration: result_object["final_pred"]["Duration of cultivation"],
+            demand: result_object["final_pred"]["Demand of crop"],
+            mixedcrop: result_object["final_pred"]["Crops for mixed cropping"],
+        };
+        console.log(saveDetailsData);
+        async function PostData(){
+            try{
+                const data = await axios.post('http://localhost:5000/api/v1/postCropResult', saveDetailsData);
+                console.log('Inserted successfully', data.data);
+                navigation.navigate('Tabs');
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        PostData();
         navigation.navigate("Tabs");
     };
 

@@ -47,7 +47,6 @@ const Profile = () => {
                                 <DataTable.Cell>Name:</DataTable.Cell> 
                                 <DataTable.Cell>Gagan S</DataTable.Cell>
                             </DataTable.Row> 
-                        
                             <DataTable.Row> 
                                 <DataTable.Cell>Email:</DataTable.Cell> 
                                 <DataTable.Cell>astraxx25422gmail.com</DataTable.Cell> 
