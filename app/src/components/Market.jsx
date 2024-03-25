@@ -16,6 +16,7 @@ import crop3 from '../../assets/crop/crop3.jpg';
 import equipment1 from '../../assets/Equipment/equipment1.jpg';
 import equipment2 from '../../assets/Equipment/equipment2.jpg';
 import equipment3 from '../../assets/Equipment/equipment3.jpg';
+import { useTranslation } from 'react-i18next';
 
 const cattleImages = [cattleImage1, cattleImage2, cattleImage3, cattleImage4];
 const FertilizersImages = [Fertilizer1, Fertilizer2,Fertilizer3];
@@ -23,7 +24,7 @@ const CropImages = [crop1, crop2,crop3];
 const EquipmentImages = [equipment1, equipment2,equipment3];
 
 const Market = () => {
-  
+    const {t, i18n} = useTranslation();
     const navigation = useNavigation();
     const[equipment,setEquipment]=useState([]);
     const[crop,setCrop]=useState([]);
@@ -116,7 +117,7 @@ const Market = () => {
             <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
                 <View style={styles.pageScroll}>
                     <View style={styles.loaderContainer}>
-                        <Text style={styles.text}>What can we help you find today?</Text>
+                        <Text style={styles.text}>{t('market-heading')}</Text>
                         <TouchableOpacity style={styles.icon} onPress={() => {
                                 fetchData;
                             }}>
@@ -128,7 +129,7 @@ const Market = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.section}>
-                        <Text style={styles.sectionText}>Farming Equipments</Text>
+                        <Text style={styles.sectionText}>{t('farming-equipments')}</Text>
                         <View>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {equipment.map((item,index)=>{
@@ -136,10 +137,10 @@ const Market = () => {
                                         <View key={index} style={styles.card}>
                                         <Image source={EquipmentImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Material : {item.material}</Text>
-                                            <Text style={styles.description}>Owner : {item.name}</Text>
-                                            <Text style={styles.description}>Price : {item.price}</Text>
-                                            <Text style={styles.description}>Phone : {item.Phone}</Text>
+                                            <Text style={styles.title}>{t('material')} : {item.material}</Text>
+                                            <Text style={styles.description}>{t('owner')} : {item.name}</Text>
+                                            <Text style={styles.description}>{t('price')} : {item.price}</Text>
+                                            <Text style={styles.description}>{t('phone')} : {item.Phone}</Text>
                                         </View>
                                     </View>
                                     )
@@ -148,7 +149,7 @@ const Market = () => {
                         </View>
                     </View>
                     <View style={styles.section}>
-                        <Text style={styles.sectionText}>Crops</Text>
+                        <Text style={styles.sectionText}>{t('crops')}</Text>
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {crop.map((item,index)=>{
@@ -156,10 +157,10 @@ const Market = () => {
                                         <View key={index} style={styles.card}>
                                         <Image source={CropImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Crop : {item.material}</Text>
-                                            <Text style={styles.description}>Owner : {item.name}</Text>
-                                            <Text style={styles.description}>Price : {item.price}</Text>
-                                            <Text style={styles.description}>Phone : {item.phone}</Text>
+                                            <Text style={styles.title}>{t('crop')} : {item.material}</Text>
+                                            <Text style={styles.description}>{t('owner')} : {item.name}</Text>
+                                            <Text style={styles.description}>{t('price')} : {item.price}</Text>
+                                            <Text style={styles.description}>{t('phone')} : {item.phone}</Text>
                                         </View>
                                     </View>
                                     )
@@ -168,7 +169,7 @@ const Market = () => {
                         </View>
                     </View>
                     <View style={styles.section}>
-                        <Text style={styles.sectionText}>Fertilizers</Text>
+                        <Text style={styles.sectionText}>{t('fertilizers')}</Text>
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {fertilizer.map((item,index)=>{
@@ -176,10 +177,10 @@ const Market = () => {
                                         <View key={index} style={styles.card}>
                                         <Image source={FertilizersImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Type : {item.material}</Text>
-                                            <Text style={styles.description}>Owner : {item.name}</Text>
-                                            <Text style={styles.description}>Price : {item.price}</Text>
-                                            <Text style={styles.description}>Phone : {item.phone}</Text>
+                                            <Text style={styles.title}>{t('type')} : {item.material}</Text>
+                                            <Text style={styles.description}>{t('owner')} : {item.name}</Text>
+                                            <Text style={styles.description}>{t('price')} : {item.price}</Text>
+                                            <Text style={styles.description}>{t('phone')} : {item.phone}</Text>
                                         </View>
                                     </View>
                                     )
@@ -188,7 +189,7 @@ const Market = () => {
                         </View>
                     </View>
                     <View style={styles.section}>
-                        <Text style={styles.sectionText}>Cattle</Text>
+                        <Text style={styles.sectionText}>{t('cattle')}</Text>
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {cattle.map((item,index)=>{
@@ -196,10 +197,10 @@ const Market = () => {
                                         <View key={index} style={styles.card}>
                                         <Image source={cattleImages[index % 4]}style={styles.image} />
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.title}>Breed : {item.type}</Text>
-                                            <Text style={styles.description}>Owner : {item.name}</Text>
-                                            <Text style={styles.description}>Price :  {item.price}</Text>
-                                            <Text style={styles.description}>Phone : {item.phone}</Text>
+                                            <Text style={styles.title}>{t('breed')} : {item.type}</Text>
+                                            <Text style={styles.description}>{t('owner')} : {item.name}</Text>
+                                            <Text style={styles.description}>{t('price')} :  {item.price}</Text>
+                                            <Text style={styles.description}>{t('phone')} : {item.phone}</Text>
                                         </View>
                                     </View>
                                     )

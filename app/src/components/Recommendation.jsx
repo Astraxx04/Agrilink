@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, ImageBackground, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
+import { useTranslation } from 'react-i18next';
 
 const recommendationImg = require("../../assets/images/cropField2.jpg");
 const yieldImg = require("../../assets/images/cropField1.jpg");
 const loanImg = require("../../assets/images/loan.jpg");
 
 const Recommendation = () => {
+    const {t, i18n} = useTranslation();
     const navigation = useNavigation();
 
     const handleRecommendationPress = () => {
@@ -27,21 +29,21 @@ const Recommendation = () => {
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.card} onPress={handleRecommendationPress}>
                 <ImageBackground source={recommendationImg} style={styles.imageBackground}>
-                    <Text style={styles.title}>Crop Recommendation</Text>
+                    <Text style={styles.title}>{t('crop-recommendation')}</Text>
                     <Text style={styles.description}>All the best</Text>
                 </ImageBackground>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.card} onPress={handleYieldPress}>
                 <ImageBackground source={yieldImg} style={styles.imageBackground}>
-                    <Text style={styles.title}>Yield Prediction</Text>
+                    <Text style={styles.title}>{t('yield-prediction')}</Text>
                     <Text style={styles.description}>All the best</Text>
                 </ImageBackground>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.card} onPress={handleLoanPress}>
                 <ImageBackground source={loanImg} style={styles.imageBackground}>
-                    <Text style={styles.title}>Loan Estimation</Text>
+                    <Text style={styles.title}>{t('loan-estimation')}</Text>
                     <Text style={styles.description}>All the best</Text>
                 </ImageBackground>
             </TouchableOpacity>

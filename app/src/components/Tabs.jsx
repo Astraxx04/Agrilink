@@ -6,10 +6,12 @@ import Profile from './Profile';
 import Recommendation from './Recommendation';
 import Market from './Market';
 import UserData from './UserData';
+import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
 function Tabs({ weather }) {
+    const {t, i18n} = useTranslation();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -23,7 +25,7 @@ function Tabs({ weather }) {
             }}
         >
             <Tab.Screen
-                name={'Profile'}
+                name={t('profile')}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Feather
@@ -45,7 +47,7 @@ function Tabs({ weather }) {
                 {() => <Profile />}
             </Tab.Screen>
             <Tab.Screen
-                name={'ChatBot'}
+                name={t('chatbot')}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Feather
@@ -67,7 +69,7 @@ function Tabs({ weather }) {
                 {() => <ChatBot />}
             </Tab.Screen>
             <Tab.Screen
-                name={'Recommend'}
+                name={t('recommend')}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Feather
@@ -89,7 +91,7 @@ function Tabs({ weather }) {
                 {() => <Recommendation />}
             </Tab.Screen>
             <Tab.Screen
-                name={'Market'}
+                name={t('market')}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Feather
@@ -111,7 +113,7 @@ function Tabs({ weather }) {
                 {() => <Market />}
             </Tab.Screen>
             <Tab.Screen
-                name={'Data'}
+                name={t('data')}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Feather

@@ -6,8 +6,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const agriLinkLogo = require("../../assets/images/agriLinkLogo.png");
 import 'react-native-get-random-values';
 const { v4: uuidv4 } = require('uuid');
+import { useTranslation } from 'react-i18next';
 
 const SignUp = () => {
+    const {t, i18n} = useTranslation();
     const [userDetails, setUserDetails] = useState({
         name: "",
         email: "",
@@ -34,37 +36,37 @@ const SignUp = () => {
     const handleSignUp = async () => {
 
         if (userDetails.name.trim() === "") {
-            setError("Please enter your name");
+            setError(t('name-error'));
             return;
         }
     
         if (userDetails.email.trim() === "") {
-            setError("Please enter your email");
+            setError(t('email-error1'));
             return;
         }
     
         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userDetails.email)) {
-            setError("Please enter a valid email address");
+            setError(t('email-error2'));
             return;
         }
     
         if (userDetails.mobile.trim() === "") {
-            setError("Please enter your mobile number");
+            setError(t('mobile-error1'));
             return;
         }
 
         if (!/^\d{10}$/.test(userDetails.mobile)) {
-            setError("Please enter a valid 10-digit mobile number");
+            setError(t('mobile-error2'));
             return;
         }
     
         if (userDetails.password.trim() === "") {
-            setError("Please enter a password");
+            setError(t('password-error1'));
             return;
         }
     
         if (userDetails.password !== userDetails.confirmPassword) {
-            setError("Passwords do not match");
+            setError(t('password-error2'));
             return;
         }
 
@@ -88,7 +90,7 @@ const SignUp = () => {
             }
         } catch (error) {
             console.error('Login error', error);
-            setError('*Something went wrong. Try again later!');
+            setError(t('signup-error'));
         }
     };
 
@@ -101,43 +103,43 @@ const SignUp = () => {
         <SafeAreaView style={styles.container}>
             <Image source={agriLinkLogo} style={styles.logo} />
             <View style={styles.formContainer}>
-                <Text style={styles.label}>Name:</Text>
+                <Text style={styles.label}>{t('name')}:</Text>
                 <TextInput
                 style={styles.input}
-                placeholder='Enter name'
+                placeholder={t('name-placeholder')}
                 value={userDetails.name}
                 onChangeText={(text) => updateUserDetails({...userDetails, name: text})}
                 />
 
-                <Text style={styles.label}>Email:</Text>
+                <Text style={styles.label}>{t('email')}:</Text>
                 <TextInput
                 style={styles.input}
-                placeholder='Enter email'
+                placeholder={t('email-placeholder')}
                 value={userDetails.email}
                 onChangeText={(text) => setUserDetails({...userDetails, email: text})}
                 />
 
-                <Text style={styles.label}>Mobile:</Text>
+                <Text style={styles.label}>{t('mobile')}:</Text>
                 <TextInput
                 style={styles.input}
-                placeholder='Enter moble'
+                placeholder={t('mobile-placeholder')}
                 value={userDetails.mobile}
                 onChangeText={(text) => setUserDetails({...userDetails, mobile: text})}
                 />
 
-                <Text style={styles.label}>Password:</Text>
+                <Text style={styles.label}>{t('password')}:</Text>
                 <TextInput
                 style={styles.input}
-                placeholder='Enter password'
+                placeholder={t('password-placeholder')}
                 value={userDetails.password}
                 onChangeText={(text) => setUserDetails({...userDetails, password: text})}
                 secureTextEntry
                 />
 
-                <Text style={styles.label}>Confirm Password:</Text>
+                <Text style={styles.label}>{t('confirm-password')}:</Text>
                 <TextInput
                 style={styles.input}
-                placeholder='Enter confirm password'
+                placeholder={t('confirm-password-placeholder')}
                 value={userDetails.confirmPassword}
                 onChangeText={(text) => setUserDetails({...userDetails, confirmPassword: text})}
                 secureTextEntry
@@ -146,11 +148,11 @@ const SignUp = () => {
                 {error && <Text style={styles.errorText}>{error}</Text>}
 
                 <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
+                    <Text style={styles.buttonText}>{t('signup')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={toLoginPage}>
-                    <Text style={styles.login}>Existing User? Login here</Text>
+                    <Text style={styles.login}>{t('signup-screen-message')}</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

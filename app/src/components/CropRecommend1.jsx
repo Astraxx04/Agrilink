@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text,ImageBackground, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useTranslation } from 'react-i18next';
 const yieldImg = require("../../assets/images/ai_bg.avif");
 
 const CropRecommend1 = () => {
+    const {t, i18n} = useTranslation();
     const navigation = useNavigation();
 
     const handleImagePress = () => {
@@ -21,12 +23,12 @@ const CropRecommend1 = () => {
                 <View style={styles.innerContainer}>
                     <TouchableOpacity style={styles.card} onPress={handleImagePress}>
                         <ImageBackground source={yieldImg} style={styles.imageBackground}>
-                            <Text style={styles.title}>Select an Image</Text>
+                            <Text style={styles.title}>{t('select-image')}</Text>
                         </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card} onPress={handleValuesPress}>
                         <ImageBackground source={yieldImg} style={styles.imageBackground}>
-                            <Text style={styles.title}>Enter Values</Text>
+                            <Text style={styles.title}>{t('enter-values')}</Text>
                         </ImageBackground>
                     </TouchableOpacity>
                 </View>
