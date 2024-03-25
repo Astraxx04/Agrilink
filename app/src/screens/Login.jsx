@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, StyleSheet, Alert, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native'; 
 import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
 const agriLinkLogo = require("../../assets/images/agriLinkLogo.png");
+
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
     const [useremail, setUserEmail] = useState('');
@@ -14,13 +17,15 @@ const Login = () => {
 
     const handleLogin = async () => {
     try {
-        console.log(useremail, password);
-        // const response = await axios.post('https://pokemon-ash.up.railway.app/api/v1/login', {
-
+        // const response = await axios.post('http://localhost:5000/api/v1/loginUser', {
+        //     email: useremail,
+        //     password: password
         // });
+        // console.log(response.data);
         response = true;
         if (response) {
             console.log('Login successful', response.data);
+            // await AsyncStorage.setItem('userData', JSON.stringify(response.data));
             // Alert.alert("Success", "You are logged in successfully!");
             navigation.navigate('Tabs');
         }
@@ -30,7 +35,7 @@ const Login = () => {
     }
   };
     const toSignUpPage = () => {
-        navigation.navigate('SignUp'); // Assuming 'SignUp' is the name of your signup screen
+        navigation.navigate('SignUp');
     };
 
   return (

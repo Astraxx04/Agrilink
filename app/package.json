@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.16",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
@@ -22,8 +23,10 @@
     "expo-location": "~16.1.0",
     "expo-media-library": "~15.4.1",
     "expo-status-bar": "~1.6.0",
+    "i18next": "^23.10.1",
     "polygon": "^1.0.2",
     "react": "18.2.0",
+    "react-i18next": "^14.1.0",
     "react-native": "0.72.10",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-get-random-values": "^1.11.0",

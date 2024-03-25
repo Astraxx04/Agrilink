@@ -1,50 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView,ActivityIndicator, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
-import { DataTable } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 const userLogo = require("../../assets/images/user.png");
 import { Feather } from '@expo/vector-icons';
+import axios from 'axios';
 
 const Profile = () => {
-    const [userDetails, setUserDetails] = useState({
-        name: "",
-        email: "",
-        mobile: "",
-        password: "",
-        confirmPassword: "",
-    });
+    const [userDetails, setUserDetails] = useState({});
+    const [originalUserDetails, setOriginalUserDetails] = useState({});
     const [error, setError] = useState(null);
     const [editMode, setEditMode] = useState(false);
-
-    const updateUserDetails = (newDetails) => {
-        setUserDetails(prevState => ({
-            ...prevState,
-            ...newDetails
-        }));
-    };
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetchData();
+        const getUserData = async() => {
+            try {
+                const storedData = await AsyncStorage.getItem('userData');
+                if (storedData !== null) {
+                    const parsedData = JSON.parse(storedData);
+                    fetchUserDetails(parsedData.user.user_id);
+                }
+            } catch (error) {
+                console.error('Error retrieving user data:', error);
+            }
+        };
+        getUserData();
     }, []);
+
+    const fetchUserDetails = async(user_id) => {
+        try {
+            const getUserDetailsResponse = await axios.get(`http://localhost:5000/api/v1/getUserDetails/${user_id}`);
+            const userData = getUserDetailsResponse.data;
+            setUserDetails(userData);
+            setOriginalUserDetails(userData);
+            setIsLoading(false);
+        }
+        catch (error) {
+            console.error('Error fetching user details:', error);
+            setIsLoading(false);
+            setIsLoading(false);
+        }
+    };
 
     const navigation = useNavigation();
 
-    const fetchData = async () => {
-        try {
-            // const response = await fetch('API_ENDPOINT');
-            // if (!response.ok) {
-            //     throw new Error('Failed to fetch data');
-            // }
-            // const data = await response.json();
-            setUserData({
-                name: "Gagan",
-                email: "astraxx2542@gmail.com",
-                mobile: "9008243280"
-            });
-        } catch (error) {
-            setError(error.message);
-        }
+    const validateAadharNumber = (aadharNo) => {
+        const aadharRegex = /^\d{12}$/;
+        return aadharRegex.test(aadharNo);
+    };
+    
+    const validatePanNumber = (panNo) => {
+        const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]$/;
+        return panRegex.test(panNo.toUpperCase());
     };
 
     const handleEdit = () => {
@@ -54,17 +63,61 @@ const Profile = () => {
             setEditMode(true);
     };
 
-    const handleSave = () => {
-        setEditMode(false);
+    const handleSave = async() => {
+        try {
+            if (!userDetails.name) {
+                setError("Name is required.");
+                return;
+            }
+            if (!userDetails.email) {
+                setError("Email is required.");
+                return;
+            }
+            if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userDetails.email)) {
+                setError("Please enter a valid email.");
+                return;
+            }
+            if (!userDetails.mobile) {
+                setError("Mobile is required.");
+                return;
+            }
+            if (!/^\d{10}$/.test(userDetails.mobile)) {
+                setError("Please enter a valid mobile number.");
+                return;
+            }
+            if (userDetails.aadharNo && !validateAadharNumber(userDetails.aadharNo)) {
+                setError("Invalid Aadhar number.");
+                return;
+            }
+            if (userDetails.panNo && !validatePanNumber(userDetails.panNo)) {
+                setError("Invalid PAN number.");
+                return;
+            }
+            setError(null);
+            // await axios.post(`http://localhost:5000/api/v1/updateUserDetails/${userDetails.user_id}`, userDetails);
+            // setOriginalUserDetails(userDetails);
+            setEditMode(false);
+        } catch (error) {
+            console.error('Error saving user data:', error);
+        }
     };
 
     const handleCancel = () => {
+        setUserDetails(originalUserDetails);
         setEditMode(false);
     };
 
     const handleLogOut = async () => {
         navigation.navigate('Login');
     };
+
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="green" />
+            </View>
+        );
+    }
 
     return (
         <KeyboardAwareScrollView>
@@ -87,7 +140,7 @@ const Profile = () => {
                             style={styles.input}
                             placeholder='Enter name'
                             value={userDetails.name}
-                            onChangeText={(text) => updateUserDetails({...userDetails, name: text})}
+                            onChangeText={(text) => setUserDetails({...userDetails, name: text})}
                             editable={editMode}
                             />
 
@@ -112,30 +165,30 @@ const Profile = () => {
                             <Text style={styles.label}>Address:</Text>
                             <TextInput
                             style={styles.input}
-                            placeholder='Enter password'
-                            value={userDetails.password}
-                            onChangeText={(text) => setUserDetails({...userDetails, password: text})}
+                            placeholder='Enter address'
+                            value={userDetails.address}
+                            onChangeText={(text) => setUserDetails({...userDetails, address: text})}
                             editable={editMode}
                             />
 
                             <Text style={styles.label}>Aadhar Number:</Text>
                             <TextInput
                             style={styles.input}
-                            placeholder='Enter password'
-                            value={userDetails.password}
-                            onChangeText={(text) => setUserDetails({...userDetails, password: text})}
+                            placeholder='Enter aadhar number'
+                            value={userDetails.aadharNo}
+                            onChangeText={(text) => setUserDetails({...userDetails, aadharNo: text})}
                             editable={editMode}
                             />
 
                             <Text style={styles.label}>Pan Number:</Text>
                             <TextInput
                             style={styles.input}
-                            placeholder='Enter confirm password'
-                            value={userDetails.confirmPassword}
-                            onChangeText={(text) => setUserDetails({...userDetails, confirmPassword: text})}
+                            placeholder='Enter pan number'
+                            value={userDetails.panNo}
+                            onChangeText={(text) => setUserDetails({...userDetails, panNo: text})}
                             editable={editMode}
                             />
-
+                            {error && editMode && <Text style={styles.errorText}>{error}</Text>}
                             {editMode && (
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleSave}>
@@ -255,6 +308,12 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
     },
 });
 

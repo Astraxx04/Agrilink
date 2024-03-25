@@ -52,6 +52,11 @@ const SignUp = () => {
             setError("Please enter your mobile number");
             return;
         }
+
+        if (!/^\d{10}$/.test(userDetails.mobile)) {
+            setError("Please enter a valid 10-digit mobile number");
+            return;
+        }
     
         if (userDetails.password.trim() === "") {
             setError("Please enter a password");
@@ -64,16 +69,21 @@ const SignUp = () => {
         }
 
         try {
-
             const userId = generateUserId();
             userDetails.user_id = userId;
-            // const response = await axios.post("", {
-
-            // });
-            response = " ";
+            const response = await axios.post("http://localhost:5000/api/v1/signupUser", {
+                name: userDetails.name,
+                email: userDetails.email,
+                password: userDetails.password,
+                mobile: userDetails.mobile,
+                address: "",
+                aadharNo: "",
+                panNo: "",
+                user_id: userDetails.user_id,
+            });
             if (response) {
                 console.log('SignUp successful', response.data);
-                // Alert.alert("Success", "You are signed up successfully!");
+                Alert.alert("Success", "Signup successfull!");
                 navigation.navigate('Login');
             }
         } catch (error) {

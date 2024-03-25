@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import { DataTable } from 'react-native-paper';
@@ -18,6 +19,7 @@ const LandDetail = ({route}) => {
     const[type, setType] = useState('');
     const[price, setPrice] = useState(0);
     const[location, setLocation] = useState('');
+    const [user_id, setUser_id] = useState();
  
     useEffect(()=>{
         async function DeterminePrice(){
@@ -34,7 +36,7 @@ const LandDetail = ({route}) => {
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-        }
+        };
 
         async function HandlePrice(){
             try{
@@ -46,10 +48,25 @@ const LandDetail = ({route}) => {
             catch(err){
                console.log(err.response);
             }
-        }
+        };
+
+        const getUserData = async() => {
+            console.log("Hi");
+            try {
+                const storedData = await AsyncStorage.getItem('userData');
+                if (storedData !== null) {
+                    const parsedData = JSON.parse(storedData);
+                    console.log(parsedData);
+                    setUser_id(parsedData.user.user_id);
+                }
+            } catch (error) {
+                console.error('Error retrieving user data:', error);
+            }
+        };
 
         DeterminePrice();
         HandlePrice();
+        getUserData();
     },[])
 
     const repeatAgain = () => {
@@ -64,6 +81,7 @@ const LandDetail = ({route}) => {
             area: area.toFixed(2),
             type: type,
             estimate: (price*(area.toFixed(2))).toFixed(2),
+            user_id: user_id,
         };
         console.log(saveDetailsData);
         async function PostData(){

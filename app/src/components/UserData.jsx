@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native'; 
 import { DataTable } from 'react-native-paper';
 import { Feather } from '@expo/vector-icons';
@@ -8,21 +8,33 @@ import axios from 'axios';
 const UserData = () => {
     const [cropResults, setCropResults] = useState([]);
     const [landResults, setLandResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     async function getAllCropResults() {
         const response = await axios.get('http://localhost:5000/api/v1/getAllCropResults');
         setCropResults(response.data);
+        setIsLoading(false);
     };
 
     async function getAllLandResults() {
         const response = await axios.get('http://localhost:5000/api/v1/getAllLandResults');
         setLandResults(response.data);
+        setIsLoading(false);
     };
 
     useEffect(() => {
         getAllCropResults();
         getAllLandResults()
     }, []);
+
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="green" />
+            </View>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -191,9 +203,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 10,
     },
-    icon: {
-
-    }
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
 });
 
 export default UserData;

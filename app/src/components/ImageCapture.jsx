@@ -4,6 +4,7 @@ import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import * as FS from "expo-file-system";
+import * as Location from 'expo-location';
 import CustomButton from './CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,6 +14,7 @@ function ImageCapture() {
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
     const [imageFromCamera, setImageFromCamera] = useState(false);
     const [predictionResults, setPredictionResults] = useState({});
+    const [location, setLocation] = useState(null);
     const cameraRef = useRef(null);
 
     const navigation = useNavigation();
@@ -22,6 +24,16 @@ function ImageCapture() {
             MediaLibrary.requestPermissionsAsync();
             const cameraStatus = await Camera.requestCameraPermissionsAsync();
             setHasCameraPermission(cameraStatus.status === 'granted');
+
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                console.log('Permission to access location was denied');
+                return;
+            }
+
+            const location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+            console.log(location.coords.latitude, location.coords.longitude);
         })();
     }, [])
 

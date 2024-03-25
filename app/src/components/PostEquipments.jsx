@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView, ScrollView, StyleSheet, Modal, Button, Text, ImageBackground, Alert, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -12,28 +13,39 @@ const PostEquipments = () => {
     const [price, setPrice]=useState('');
     const[phone, setPhone]=useState('');
 
-    function handleNameChange(name){
-        setName(name);
-    }
+    useEffect(() => {
+        const getUserData = async() => {
+            try {
+                const storedData = await AsyncStorage.getItem('userData');
+                if (storedData !== null) {
+                    const parsedData = JSON.parse(storedData);
+                    setName(parsedData.user.name);
+                    setPhone(parsedData.user.mobile);
+                }
+            } catch (error) {
+                console.error('Error retrieving user data:', error);
+            }
+        };
+        getUserData();
+    }, []);
+
     function handleMaterialChange(material){
         setMaterial(material);
     }
     function handlePriceChange(price){
         setPrice(price);
     }
-    function handlePhoneChange(phone){
-        setPhone(phone);
-    }
+    
     async function PostEquipmentData(){
         try{
             const data = await axios.post('http://localhost:5000/api/v1/postEquipment', {
             name,
             material,
             price,
-            phone
-          })
-          console.log('Inserted successfully',data.data);
-          navigation.navigate('Market');
+            phone,
+        })
+            console.log('Inserted successfully',data.data);
+            navigation.navigate('Market');
         }
         catch(err){
             console.log(err);
@@ -50,11 +62,19 @@ const PostEquipments = () => {
                     <TextInput
                         style={styles.input}
                         value={name}
-                        onChangeText={handleNameChange}
                         inputMode='text'
+                        editable={false}
                     />
 
-                    <Text style={styles.label}>Material Type : </Text>
+                    <Text style={styles.label}>Phone : </Text>
+                    <TextInput
+                        style={styles.input}
+                        value={phone}
+                        inputMode='numeric'
+                        editable={false}
+                    />
+
+                    <Text style={styles.label}>Material : </Text>
                     <TextInput
                         style={styles.input}
                         value={material}
@@ -67,14 +87,6 @@ const PostEquipments = () => {
                         style={styles.input}
                         value={price}
                         onChangeText={handlePriceChange}
-                        inputMode='numeric'
-                    />
-
-                    <Text style={styles.label}>Phone : </Text>
-                    <TextInput
-                        style={styles.input}
-                        value={phone}
-                        onChangeText={handlePhoneChange}
                         inputMode='numeric'
                     />
 

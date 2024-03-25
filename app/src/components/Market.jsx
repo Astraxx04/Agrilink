@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, ScrollView, TouchableOpacity, View, Image } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StyleSheet, Text, ScrollView, TouchableOpacity, View, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -29,76 +29,111 @@ const Market = () => {
     const[crop,setCrop]=useState([]);
     const[fertilizer,setFertilizer]=useState([]);
     const[cattle,setCattle]=useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
+
+    async function FetchedEquipmentData(){
+        try{
+            const getData=await axios.get('http://localhost:5000/api/v1/getEquipment');
+            setEquipment(getData.data);
+            setIsLoading(false);
+        }
+        catch(err){
+            console.log('The error is',err);
+            setIsLoading(false);
+        }
+       
+    }
+    async function FetchedCropData(){
+        try{
+            const getData=await axios.get('http://localhost:5000/api/v1/getCrop');
+            setCrop(getData.data);
+            setIsLoading(false);
+        }
+        catch(err){
+            console.log('The error is',err);
+            setIsLoading(false);
+        }
+       
+    }
+    async function FetchedFertilizerData(){
+        try{
+            const getData=await axios.get('http://localhost:5000/api/v1/getFertilizer');
+            setFertilizer(getData.data);
+            setIsLoading(false);
+        }
+        catch(err){
+            console.log('The error is',err);
+            setIsLoading(false);
+        }
+       
+    }
+    async function FetchedCattleData(){
+        try{
+            const getData=await axios.get('http://localhost:5000/api/v1/getCattle');
+            setCattle(getData.data);
+            setIsLoading(false);
+        }
+        catch(err){
+            console.log('The error is',err);
+            setIsLoading(false);
+        }
+       
+    }
+
+    async function fetchData() {
+        setIsLoading(true);
+        try {
+            await Promise.all([
+                FetchedEquipmentData(),
+                FetchedCropData(),
+                FetchedFertilizerData(),
+                FetchedCattleData()
+            ]);
+            setIsLoading(false);
+            setRefreshing(false);
+        } catch (err) {
+            console.log('Error fetching data:', err);
+            setIsLoading(false);
+            setRefreshing(false);
+        }
+    }
 
     useEffect(()=>{
-        async function FetchedData(){
-            try{
-                const getData=await axios.get('http://localhost:5000/api/v1/getCrop');
-                setCrop(getData.data);
-                console.log(getData.data[1]);
-                console.log(crop);
-            }
-            catch(err){
-                console.log('The error is',err);
-            }
-           
-        }
-        async function FetchedCropData(){
-            try{
-                const getData=await axios.get('http://localhost:5000/api/v1/getEquipment');
-                setEquipment(getData.data);
-                console.log(getData.data[1]);
-                console.log(equipment);
-            }
-            catch(err){
-                console.log('The error is',err);
-            }
-           
-        }
-        async function FetchedFertilizerData(){
-            try{
-                const getData=await axios.get('http://localhost:5000/api/v1/getFertilizer');
-                setFertilizer(getData.data);
-                console.log(getData.data[1]);
-                console.log(fertilizer);
-            }
-            catch(err){
-                console.log('The error is',err);
-            }
-           
-        }
-        async function FetchedCattleData(){
-            try{
-                const getData=await axios.get('http://localhost:5000/api/v1/getCattle');
-                setCattle(getData.data);
-                console.log(getData.data[1]);
-                console.log(cattle);
-            }
-            catch(err){
-                console.log('The error is',err);
-            }
-           
-        }
-        
-        FetchedData();
-        FetchedCropData();
-        FetchedFertilizerData();
-        FetchedCattleData();
-    },[])
+        fetchData();
+    },[refreshing])
+
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="green" />
+            </View>
+        );
+    }
+
     return(
         <SafeAreaView style={styles.container}>
             <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
                 <View style={styles.pageScroll}>
-                    <Text style={styles.text}>
-                            What can we help you find today?
-                    </Text>
+                    <View style={styles.loaderContainer}>
+                        <Text style={styles.text}>What can we help you find today?</Text>
+                        <TouchableOpacity style={styles.icon} onPress={() => {
+                                fetchData;
+                            }}>
+                            <Feather
+                                name="rotate-ccw"
+                                size={24}
+                                color="green"
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.section}>
                         <Text style={styles.sectionText}>Farming Equipments</Text>
                         <View>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {equipment.map((item,index)=>{
                                     return(
-                                        <View style={styles.card}>
+                                        <View key={index} style={styles.card}>
                                         <Image source={EquipmentImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
                                             <Text style={styles.title}>Material : {item.material}</Text>
@@ -117,9 +152,8 @@ const Market = () => {
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {crop.map((item,index)=>{
-                                    
                                     return(
-                                        <View style={styles.card}>
+                                        <View key={index} style={styles.card}>
                                         <Image source={CropImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
                                             <Text style={styles.title}>Crop : {item.material}</Text>
@@ -137,9 +171,9 @@ const Market = () => {
                         <Text style={styles.sectionText}>Fertilizers</Text>
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                            {fertilizer.map((item,index)=>{
+                                {fertilizer.map((item,index)=>{
                                     return(
-                                        <View style={styles.card}>
+                                        <View key={index} style={styles.card}>
                                         <Image source={FertilizersImages[index % 3]} style={styles.image} />
                                         <View style={styles.textContainer}>
                                             <Text style={styles.title}>Type : {item.material}</Text>
@@ -158,10 +192,8 @@ const Market = () => {
                         <View>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 {cattle.map((item,index)=>{
-                                    
                                     return(
-                                        <View style={styles.card}>
-        
+                                        <View key={index} style={styles.card}>
                                         <Image source={cattleImages[index % 4]}style={styles.image} />
                                         <View style={styles.textContainer}>
                                             <Text style={styles.title}>Breed : {item.type}</Text>
@@ -194,9 +226,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        fontSize: 20,
-        paddingTop: 60,
         alignSelf: 'center',
+        fontSize: 32,
     },
     section: {
         paddingTop: 20
@@ -247,6 +278,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#00ab41', 
         borderRadius: 200, 
     },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    loaderContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 20,
+        marginTop: 20,
+    },
+    icon: {
+        marginTop: 10,
+    }
 });
 
 export default Market;
