@@ -9,6 +9,7 @@ const marketRouter = require("./routes/market");
 const locationRouter = require("./routes/locations");
 const cropResultsRouter = require("./routes/cropResults");
 const landResultsRouter = require("./routes/landResults");
+const userRouter = require("./routes/user");
 
 const port = process.env.PORT || 5000;
 
@@ -17,6 +18,7 @@ app.use("/api/v1/", marketRouter);
 app.use("/api/v1/", locationRouter);
 app.use("/api/v1/", cropResultsRouter);
 app.use("/api/v1/", landResultsRouter);
+app.use("/api/v1/", userRouter);
 
 const startServer = async () => {
 	try {

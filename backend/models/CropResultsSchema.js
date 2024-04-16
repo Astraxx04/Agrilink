@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const CropResultsSchema = mongoose.Schema({
-    id:Number,
+    user_id:String,
     crop:String,
     fertilizer:String,
     cost:String,

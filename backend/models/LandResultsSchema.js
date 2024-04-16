@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const LandResultsSchema = mongoose.Schema({
-    id:Number,
+    user_id:String,
     location:String,
     district:String,
     state:String,
