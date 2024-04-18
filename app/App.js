@@ -16,6 +16,9 @@ import ImageCapture from './src/components/ImageCapture';
 import Recommendation from './src/components/Recommendation';
 import UserData from './src/components/UserData';
 import ResultsPage from './src/components/ResultsPage';
+import SubmitDocument from './src/components/SubmitDocument';
+import ViewDetails from './src/components/ViewDetails';
+import FarmersList from './src/components/FarmersList';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +42,9 @@ export default function App() {
         <Stack.Screen name="LandDetail" component={LandDetail} options={{ headerShown: false }}/>
         <Stack.Screen name="UserData" component={UserData} options={{ headerShown: false }}/>
         <Stack.Screen name="ResultsPage" component={ResultsPage} options={{ headerShown: false }}/>
+        <Stack.Screen name="SubmitDocument" component={SubmitDocument} options={{headerShown:false}}/>
+        <Stack.Screen name="ViewDetails" component={ViewDetails} options={{headerShown:false}}/>
+        <Stack.Screen name="FarmersList" component={FarmersList} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

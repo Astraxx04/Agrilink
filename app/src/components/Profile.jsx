@@ -7,16 +7,28 @@ const userLogo = require("../../assets/images/user.png");
 import { Feather } from '@expo/vector-icons';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import * as ImagePicker from 'expo-image-picker';
 
 const Profile = () => {
     const {t, i18n} = useTranslation();
+    const [hasGalleryPermission,setHasGalleryPermission]=useState(null);
     const [userDetails, setUserDetails] = useState({});
     const [originalUserDetails, setOriginalUserDetails] = useState({});
     const [error, setError] = useState(null);
     const [editMode, setEditMode] = useState(false);
+    const [uploadEditMode, setUploadEditMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
+    const[aadhar,setAadhar]=useState(null);
+    const[pan,setPan]=useState(null);
+    const[profile,setProfile]=useState(null);
+
     useEffect(() => {
+        (async ()=>{
+            const galleryStatus=await ImagePicker.requestMediaLibraryPermissionsAsync();
+            setHasGalleryPermission(galleryStatus.status==='granted');
+        })();
+
         const getUserData = async() => {
             try {
                 const storedData = await AsyncStorage.getItem('userData');
@@ -65,6 +77,13 @@ const Profile = () => {
             setEditMode(true);
     };
 
+    const handleUploadEdit = () => {
+        if(uploadEditMode == true)
+            setUploadEditMode(false);
+        else
+            setUploadEditMode(true);
+    };
+
     const handleSave = async() => {
         try {
             if (!userDetails.name) {
@@ -104,9 +123,18 @@ const Profile = () => {
         }
     };
 
+    const handleUploadSave = async() => {
+        //
+    };
+
     const handleCancel = () => {
         setUserDetails(originalUserDetails);
         setEditMode(false);
+    };
+
+    const handleUploadCancel = () => {
+        //
+        setUploadEditMode(false);
     };
 
     const handleLogOut = async () => {
@@ -119,6 +147,84 @@ const Profile = () => {
                 <ActivityIndicator size="large" color="green" />
             </View>
         );
+    }
+
+    const AadharImage=async()=>{
+        let result=await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            allowsEditing:true,
+            aspect:[4,3],
+            quality:1,
+        })
+        if(!result.canceled){
+            setAadhar(result.assets[0].uri);   
+        }
+    };
+
+    const PanImage=async()=>{
+        let result=await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            allowsEditing:true,
+            aspect:[4,3],
+            quality:1,
+        })
+        if(!result.canceled){
+            setPan(result.assets[0].uri);    
+        }
+    };
+
+    const ProfileImage=async()=>{
+        let result=await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            allowsEditing:true,
+            aspect:[4,3],
+            quality:1,
+        })
+        if(!result.canceled){
+            setProfile(result.assets[0].uri);   
+        }
+    };
+
+    async function PostDetail() {
+        const formData = new FormData();
+        formData.append('aadhar',{
+            name:'aadhar',
+            uri:aadhar,
+            type:'image/jpg'
+        });
+        formData.append('pan',{
+            name:'pan',
+            uri:pan,
+            type:'image/jpg'
+        });
+        formData.append('profile', {
+            name:'profile',
+            uri:profile,
+            type:'image/jpg'
+        });
+        formData.append('name', name);
+        formData.append('address', address);
+        formData.append('phone', phone);
+
+        console.log(formData);
+
+        try {
+            const res = await axios.post('http://localhost:5000/storeUserDetail', formData, {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(res.data);
+
+            navigation.navigate('ViewDetails')
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    if(hasGalleryPermission===false){
+        return <Text>No Access to Internal Storage</Text>
     }
 
     return (
@@ -203,11 +309,61 @@ const Profile = () => {
                             )}
                         </View>
                     </View>
-                    
-                    <TouchableOpacity style={styles.button} onPress={handleLogOut}>
-                        <Text style={styles.buttonText}>{t('logout')}</Text>
-                    </TouchableOpacity>
                 </View>
+
+                <View style={styles.detailBox}>
+                    <Text style={styles.headingText}>Upload documents:</Text>
+                    <View style={styles.formContainer}>
+                        <TouchableOpacity style={styles.iconContainer} onPress={handleUploadEdit}>
+                            <Feather
+                                name="edit"
+                                size={24}
+                                color="black"
+                                style={styles.editIcon}
+                            />
+                        </TouchableOpacity>
+
+                        <View style={styles.uploadContainer}>
+                            <Text style={styles.label}>Profile Photo:</Text>
+                            {profile && <Image source={{uri:profile}} style={{width: '100%', height: 200, marginBottom: 8}}/>}
+                            <TouchableOpacity style={[styles.uploadDocButton, uploadEditMode ? null : styles.disabled]} onPress={uploadEditMode ? () => {ProfileImage()} : null}>
+                                <Text style={styles.buttonText}>{profile ? 'Change Profile Photo' : 'Upload Profile Photo'}</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.uploadContainer}>
+                            <Text style={styles.label}>Aadhar:</Text>
+                            {aadhar && <Image source={{uri:aadhar}} style={{width: '100%', height: 200, marginBottom: 8}}/>}
+                            <TouchableOpacity style={[styles.uploadDocButton, uploadEditMode ? null : styles.disabled]} onPress={uploadEditMode ? () => {AadharImage()} : null}>
+                                <Text style={styles.buttonText}>{aadhar ? 'Change Aadhar' : 'Upload Aadhar'}</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.uploadContainer}>
+                            <Text style={styles.label}>PAN:</Text>
+                            {pan && <Image source={{uri:pan}} style={{width: '100%', height: 200, marginBottom: 8}}/>}
+                            <TouchableOpacity style={[styles.uploadDocButton, uploadEditMode ? null : styles.disabled]} onPress={uploadEditMode ? () => {PanImage()} : null}>
+                                <Text style={styles.buttonText}>{pan ? 'Change PAN' : 'Upload PAN'}</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {uploadEditMode && <Text style={styles.errorText}>{error}</Text>}
+                        {uploadEditMode && (
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUploadCancel}>
+                                    <Text style={styles.buttonText}>{t('save-button')}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.modalButton, styles.closeButton]} onPress={handleUploadCancel}>
+                                    <Text style={styles.buttonText}>{t('cancel-button')}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
+
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.button} onPress={handleLogOut}>
+                    <Text style={styles.buttonText}>{t('logout')}</Text>
+                </TouchableOpacity>
             </SafeAreaView>
         </KeyboardAwareScrollView>
     );
@@ -317,6 +473,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
     },
+    uploadContainer: {
+        width: "100%",
+    },
+    uploadDocButton: {
+        backgroundColor: 'blue',
+        padding: 10,
+        width: "100%",
+        alignItems: 'center',
+        borderRadius: 5,
+        marginBottom: 8,
+    },
+    disabled: {
+        backgroundColor: 'gray',
+        opacity: 0.5,
+    }
 });
 
 export default Profile;

@@ -1,346 +1,492 @@
 {
-    "locations": [
-      {
-        "place_id": 2,
-        "latitude": 12.9369,
-        "longitude": 77.5669,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Basavanagudi",
-        "price_estimate_per_sqft": {
-          "average": "10400"
-        }
-      },
-      {
-        "place_id": 4,
-        "latitude": 12.9081,
-        "longitude": 77.6476,
-        "place_rank": 16,
-        "importance": 0.6,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"HSR Layout",
-        "price_estimate_per_sqft": {
-          "average": "25750"
-        }
-      },
-      {
-        "place_id": 5,
-        "latitude": 12.9172,
-        "longitude": 77.6225,
-        "place_rank": 16,
-        "importance": 0.65,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"BTM Layout",
-        "price_estimate_per_sqft": {
-          "average": "17000"
-        }
-      },
-      {
-        "place_id": 6,
-        "latitude": 12.9539,
-        "longitude": 77.5373,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Hampi Nagar",
-        "price_estimate_per_sqft": {
-          "average": "24000"
-        }
-      },
-      {
-        "place_id": 7,
-        "latitude": 12.9823,
-        "longitude": 77.6218,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Halasooru",
-        "price_estimate_per_sqft": {
-          "average": "15000"
-        }
-      },
-      {
-        "place_id": 8,
-        "latitude": 12.9454,
-        "longitude": 77.6047,
-        "place_rank": 16,
-        "importance": 0.65,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Bannerghatta Road",
-        "price_estimate_per_sqft": {
-          "average": "5000"
-        }
-      },
-      {
-        "place_id": 9,
-        "latitude": 12.9607,
-        "longitude": 77.6481,
-        "place_rank": 16,
-        "importance": 0.6,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Kodihalli",
-        "price_estimate_per_sqft": {
-          "average": "3500"
-        }
-      },
-      {
-        "place_id": 10,
-        "latitude": 12.9096,
-        "longitude": 77.5748,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"JP Nagar",
-        "price_estimate_per_sqft": {
-          "average": "13750"
-        }
-      },
-      {
-        "place_id": 12,
-        "latitude": 12.9527,
-        "longitude": 77.5968,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Shanthi Nagar",
-        "price_estimate_per_sqft": {
-          "average": "16000"
-        }
-      },
-      {
-        "place_id": 13,
-        "latitude": 12.9299,
-        "longitude": 77.6179,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Sarjapur Road",
-        "price_estimate_per_sqft": {
-          "average": "13000"
-        }
-      },
-      {
-        "place_id": 16,
-        "latitude": 12.9466,
-        "longitude": 77.586,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Lalbagh Botanical Garden",
-        "price_estimate_per_sqft": {
-
-          "average": "9000"
-        }
-      },
-      {
-        "place_id": 19,
-        "latitude": 12.9386,
-        "longitude": 77.6256,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Koramangala",
-        "price_estimate_per_sqft": {
-          "average": "25500"
-        }
-      },
-      {
-        "place_id": 21,
-        "latitude": 12.9763,
-        "longitude": 77.6837,
-        "place_rank": 16,
-        "importance": 0.6,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Vignananagar",
-        "price_estimate_per_sqft": {
-          "average": "10000"
-        }
-      },
-      {
-        "place_id": 22,
-        "latitude": 12.9463,
-        "longitude": 77.5912,
-        "place_rank": 16,
-        "importance": 0.7,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Siddapura",
-        "price_estimate_per_sqft": {
-          "average": "8500"
-        }
-      },
-      {
-        "place_id": 23,
-        "latitude": 12.9203,
-        "longitude": 77.559,
-        "place_rank": 16,
-        "importance": 0.65,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Kumaraswamy Layout",
-        "price_estimate_per_sqft": {
-          "average": "14000"
-        }
-      },
-      {
-        "place_id": 24,
-        "latitude": 12.9451,
-        "longitude": 77.5817,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Rashtriya Vidyalaya Road",
-        "price_estimate_per_sqft": {
-          "average": "15000"
-        }
-      },
-      {
-        "place_id": 30,
-        "latitude": 12.951845,
-        "longitude": 77.699577,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Bellanduru",
-        "price_estimate_per_sqft": {
-          "average": "20000"
-        }
-      },
-      {
-        "place_id": 31,
-        "latitude": 12.971389,
-        "longitude": 77.750130,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"WhiteField",
-        "price_estimate_per_sqft": {
-          "average": "22000"
-        }
-      },
-      {
-        "place_id": 32,
-        "latitude": 12.971891,
-        "longitude": 77.641151,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Indiranagar",
-        "price_estimate_per_sqft": {
-          "average": "30000"
-        }
-      },
-      {
-        "place_id": 33,
-        "latitude": 12.925007,
-        "longitude": 77.593803,
-        "place_rank": 16,
-        "importance": 0.75,
-        "address": {
-          "city": "Bengaluru",
-          "state_district": "Bengaluru Urban",
-          "state": "Karnataka",
-          "country": "India"
-        },
-        "location":"Jayanagar",
-        "price_estimate_per_sqft": {
-          "average": "30000"
-        }
+  "locations": [
+    {
+      "place_id": 2,
+      "latitude": 12.9369,
+      "longitude": 77.5669,
+      "location":"Basavanagudi",
+      "price_estimate_per_sqft": {
+        "average": "10400"
       }
-    ]
+    },
+    {
+      "place_id": 4,
+      "latitude": 12.9081,
+      "longitude": 77.6476,
+      "location":"HSR Layout",
+      "price_estimate_per_sqft": {
+        "average": "25750"
+      }
+    },
+    {
+      "place_id": 5,
+      "latitude": 12.9172,
+      "longitude": 77.6225,
+      "location":"BTM Layout",
+      "price_estimate_per_sqft": {
+        "average": "17000"
+      }
+    },
+    {
+      "place_id": 6,
+      "latitude": 12.9539,
+      "longitude": 77.5373,
+      "location":"Hampi Nagar",
+      "price_estimate_per_sqft": {
+        "average": "24000"
+      }
+    },
+    {
+      "place_id": 7,
+      "latitude": 12.9823,
+      "longitude": 77.6218,
+      "location":"Halasooru",
+      "price_estimate_per_sqft": {
+        "average": "15000"
+      }
+    },
+    {
+      "place_id": 8,
+      "latitude": 12.9454,
+      "longitude": 77.6047,
+      "location":"Bannerghatta Road",
+      "price_estimate_per_sqft": {
+        "average": "5000"
+      }
+    },
+    {
+      "place_id": 9,
+      "latitude": 12.9607,
+      "longitude": 77.6481,
+      "location":"Kodihalli",
+      "price_estimate_per_sqft": {
+        "average": "3500"
+      }
+    },
+    {
+      "place_id": 10,
+      "latitude": 12.9096,
+      "longitude": 77.5748,
+      "location":"JP Nagar",
+      "price_estimate_per_sqft": {
+        "average": "13750"
+      }
+    },
+    {
+      "place_id": 12,
+      "latitude": 12.9527,
+      "longitude": 77.5968,
+      "location":"Shanthi Nagar",
+      "price_estimate_per_sqft": {
+        "average": "16000"
+      }
+    },
+    {
+      "place_id": 13,
+      "latitude": 12.9299,
+      "longitude": 77.6179,
+      "location":"Sarjapur Road",
+      "price_estimate_per_sqft": {
+        "average": "13000"
+      }
+    },
+    {
+      "place_id": 16,
+      "latitude": 12.9466,
+      "longitude": 77.586,
+      "location":"Lalbagh Botanical Garden",
+      "price_estimate_per_sqft": {
+
+        "average": "9000"
+      }
+    },
+    {
+      "place_id": 19,
+      "latitude": 12.9386,
+      "longitude": 77.6256,
+      "location":"Koramangala",
+      "price_estimate_per_sqft": {
+        "average": "25500"
+      }
+    },
+    {
+      "place_id": 21,
+      "latitude": 12.9763,
+      "longitude": 77.6837,
+      "location":"Vignananagar",
+      "price_estimate_per_sqft": {
+        "average": "10000"
+      }
+    },
+    {
+      "place_id": 22,
+      "latitude": 12.9463,
+      "longitude": 77.5912,
+      "location":"Siddapura",
+      "price_estimate_per_sqft": {
+        "average": "8500"
+      }
+    },
+    {
+      "place_id": 23,
+      "latitude": 12.9203,
+      "longitude": 77.559,
+      "location":"Kumaraswamy Layout",
+      "price_estimate_per_sqft": {
+        "average": "14000"
+      }
+    },
+    {
+      "place_id": 24,
+      "latitude": 12.9451,
+      "longitude": 77.5817,
+      "location":"Rashtriya Vidyalaya Road",
+      "price_estimate_per_sqft": {
+        "average": "15000"
+      }
+    },
+    {
+      "place_id": 30,
+      "latitude": 12.951845,
+      "longitude": 77.699577,
+      "location":"Bellanduru",
+      "price_estimate_per_sqft": {
+        "average": "20000"
+      }
+    },
+    {
+      "place_id": 31,
+      "latitude": 12.971389,
+      "longitude": 77.750130,
+      "location":"WhiteField",
+      "price_estimate_per_sqft": {
+        "average": "22000"
+      }
+    },
+    {
+      "place_id": 32,
+      "latitude": 12.971891,
+      "longitude": 77.641151,
+      "location":"Indiranagar",
+      "price_estimate_per_sqft": {
+        "average": "30000"
+      }
+    },
+    {
+      "place_id": 33,
+      "latitude": 12.925007,
+      "longitude": 77.593803,
+      "location":"Jayanagar",
+      "price_estimate_per_sqft": {
+        "average": "30000"
+      }
+    },
+    {
+      "place_id": 34,
+      "latitude": 13.298757,
+      "longitude": 77.540817,
+      "location":"Doddaballapura",
+      "price_estimate_per_sqft": {
+        "average": "3111"
+      }
+    },
+    {
+      "place_id": 35,
+      "latitude": 13.241715,
+      "longitude": 77.713730,
+      "location":"Devanahalli",
+      "price_estimate_per_sqft": {
+        "average": "6830"
+      }
+    },
+    {
+      "place_id": 36,
+      "latitude": 13.070000,
+      "longitude":77.800003,
+      "location":"Hosakote",
+      "price_estimate_per_sqft": {
+        "average":"3735"
+      }
+    },
+    {
+      "place_id": 37,
+      "latitude":13.089093,
+      "longitude":77.410416,
+      "location":"Nelamangala",
+      "price_estimate_per_sqft": {
+        "average": "3689"
+      }
+    },
+    {
+      "place_id": 37,
+      "location": "Basaveshwara Nagar",
+      "latitude": 12.990000,
+      "longitude": 77.540001,
+      "price_estimate_per_sqft": {
+        "average": "6960"
+      }
+    },
+    {
+      "place_id": 38,
+      "location": "Jalahalli",
+      "price": 7765,
+      "latitude": 13.046000,
+      "longitude": 77.548500,
+      "price_estimate_per_sqft": {
+        "average": "7765"
+      }
+      
+    },
+    {
+      "place_id": 39,
+      "location": "Bommanahalli",
+      "price": 6252,
+      "latitude": 12.9063,
+      "longitude": 77.6048,
+      "price_estimate_per_sqft": {
+        "average": "6252"
+      }
+    },
+    {
+      "place_id": 40,
+      "location": "Gottigere",
+      "price": 6303,
+      "latitude": 12.8562,
+      "longitude": 77.5869,
+      "price_estimate_per_sqft": {
+        "average": "6303"
+      }
+    },
+    {
+      "place_id": 41,
+      "location": "Vasanthpura",
+      "price": 6802,
+      "latitude": 12.8628,
+      "longitude": 77.5707,
+      "price_estimate_per_sqft": {
+        "average": "6802"
+      }
+    },
+    {
+      "place_id": 42,
+      "location": "Nagapura",
+      "price": 9009,
+      "latitude": 13.0033,
+      "longitude": 77.5456,
+      "price_estimate_per_sqft": {
+        "average": "9009"
+      }
+    },
+    {
+      "place_id": 43,
+      "location": "Vijnana Nagar",
+      "price": 6413,
+      "latitude": 12.9965,
+      "longitude": 77.6590,
+      "price_estimate_per_sqft": {
+        "average": "6413"
+      }
+    },
+    {
+      "place_id": 44,
+      "location": "Kuvempu Nagar",
+      "price": 6255,
+      "latitude": 12.9967,
+      "longitude": 77.5294,
+      "price_estimate_per_sqft": {
+        "average": "6255"
+      }
+    },
+    {
+      "place_id": 45,
+      "location": "Hosakerehalli",
+      "price": 8263,
+      "latitude": 12.9127,
+      "longitude": 77.5499,
+      "price_estimate_per_sqft": {
+        "average": "8263"
+      }
+    },
+    {
+      "place_id": 46,
+      "location": "Sanjaya Nagar",
+      "price": 9148,
+      "latitude": 13.0351,
+      "longitude": 77.5696,
+      "price_estimate_per_sqft": {
+        "average": "9148"
+      }
+    },
+    {
+      "place_id": 47,
+      "location": "C V Raman Nagar",
+      "price": 6015,
+      "latitude": 12.9842,
+      "longitude": 77.6639,
+      "price_estimate_per_sqft": {
+        "average": "6015"
+      }
+    },
+    {
+      "place_id": 48,
+      "location": "Jayamahal",
+      "price": 10344,
+      "latitude": 12.9962,
+      "longitude": 77.5850,
+      "price_estimate_per_sqft": {
+        "average": "10344"
+      }
+    },
+    {
+      "place_id": 49,
+      "location": "Kamakshipalya",
+      "price": 7995,
+      "latitude": 12.9843,
+      "longitude": 77.5243,
+      "price_estimate_per_sqft": {
+        "average": "7995"
+      }
+    },
+    {
+      "place_id": 50,
+      "location": "Mallasandra",
+      "price": 6987,
+      "latitude": 13.0664,
+      "longitude": 77.5433,
+      "price_estimate_per_sqft": {
+        "average": "6987"
+      }
+    },
+    {
+      "place_id": 51,
+      "location": "Karisandra",
+      "price": 10493,
+      "latitude": 12.9342,
+      "longitude": 77.5687,
+      "price_estimate_per_sqft": {
+        "average": "10493"
+      }
+    },
+    {
+      "place_id": 52,
+      "location": "Kumaraswamy Layout",
+      "price": 6797,
+      "latitude": 12.9067,
+      "longitude": 77.5635,
+      "price_estimate_per_sqft": {
+        "average": "6797"
+      }
+    },
+    {
+      "place_id": 53,
+      "location": "Rajaji Nagar",
+      "price": 9348,
+      "latitude": 12.9882,
+      "longitude": 77.5549,
+      "price_estimate_per_sqft": {
+        "average": "9348"
+      }
+    },
+    {
+      "place_id": 54,
+      "location": "Ramamurthy Nagar",
+      "price": 6906,
+      "latitude": 13.0224,
+      "longitude": 77.6775,
+      "price_estimate_per_sqft": {
+        "average": "6906"
+      }
+    },
+    {
+      "place_id": 55,
+      "location": "Kadu Malleshwar Ward",
+      "price": 10557,
+      "latitude": 13.0185,
+      "longitude": 77.5425,
+      "price_estimate_per_sqft": {
+        "average": "10557"
+      }
+    },
+    {
+      "place_id": 56,
+      "location": "Bapuji Nagar",
+      "price": 8238,
+      "latitude": 12.9183,
+      "longitude": 77.5560,
+      "price_estimate_per_sqft": {
+        "average": "8238"
+      }
+    },
+    {
+      "place_id": 57,
+      "location": "Jagajivanaramnagar",
+      "price": 9681,
+      "latitude": 13.0274,
+      "longitude": 77.5314,
+      "price_estimate_per_sqft": {
+        "average": "9681"
+      }
+    },
+    {
+      "place_id": 58,
+      "location": "A Narayanapura",
+      "price": 7200,
+      "latitude": 13.0500,
+      "longitude": 77.6300,
+      "price_estimate_per_sqft": {
+        "average": "7200"
+      }
+    },
+    {
+      "place_id": 59,
+      "location": "Rajagopal Nagar",
+      "price": 6679,
+      "latitude": 13.0575,
+      "longitude": 77.5142,
+      "price_estimate_per_sqft": {
+        "average": "6679"
+      }
+    },
+    {
+      "place_id": 60,
+      "location": "Agrahara Dasarahalli",
+      "price": 8441,
+      "latitude": 12.9533,
+      "longitude": 77.5084,
+      "price_estimate_per_sqft": {
+        "average": "8441"
+      }
+    },
+    {
+      "place_id": 61,
+      "location": "Nilasandra",
+      "price": 9965,
+      "latitude": 13.0244,
+      "longitude": 77.5936,
+      "price_estimate_per_sqft": {
+        "average": "9965"
+      }
+    },
+    {
+      "place_id": 62,
+      "location": "Ullalu",
+      "price": 6595,
+      "latitude": 12.9431,
+      "longitude": 77.5032,
+      "price_estimate_per_sqft": {
+        "average": "6595"
+      }
+    },
+    {
+      "place_id": 63,
+      "location": "Kammanahalli",
+      "price": 9025,
+      "latitude": 13.0108,
+      "longitude": 77.6369,
+      "price_estimate_per_sqft": {
+        "average": "9025"
+      }
+    }
+
+  ]
 }
-  

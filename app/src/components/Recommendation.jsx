@@ -34,12 +34,12 @@ const Recommendation = () => {
                 </ImageBackground>
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.card} onPress={handleYieldPress}>
+            {/* <TouchableOpacity style={styles.card} onPress={handleYieldPress}>
                 <ImageBackground source={yieldImg} style={styles.imageBackground}>
                     <Text style={styles.title}>{t('yield-prediction')}</Text>
                     <Text style={styles.description}>All the best</Text>
                 </ImageBackground>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity style={styles.card} onPress={handleLoanPress}>
                 <ImageBackground source={loanImg} style={styles.imageBackground}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         width: '80%',
-        height: '45%',
+        height: '75%', //45%
         top: 40,
         marginTop: 40,
         borderRadius: 10,
