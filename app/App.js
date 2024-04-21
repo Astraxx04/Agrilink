@@ -19,6 +19,7 @@ import ResultsPage from './src/components/ResultsPage';
 import SubmitDocument from './src/components/SubmitDocument';
 import ViewDetails from './src/components/ViewDetails';
 import FarmersList from './src/components/FarmersList';
+import UserMarketItems from './src/components/UserMarketItems';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ export default function App() {
         <Stack.Screen name="SubmitDocument" component={SubmitDocument} options={{headerShown:false}}/>
         <Stack.Screen name="ViewDetails" component={ViewDetails} options={{headerShown:false}}/>
         <Stack.Screen name="FarmersList" component={FarmersList} options={{headerShown:false}}/>
+        <Stack.Screen name="UserMarketItems" component={UserMarketItems} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -19,9 +19,9 @@ const Profile = () => {
     const [uploadEditMode, setUploadEditMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const[aadhar,setAadhar]=useState(null);
-    const[pan,setPan]=useState(null);
-    const[profile,setProfile]=useState(null);
+    const[aadhar, setAadhar]=useState(null);
+    const[pan, setPan]=useState(null);
+    const[profile, setProfile]=useState(null);
 
     useEffect(() => {
         (async ()=>{
@@ -78,8 +78,12 @@ const Profile = () => {
     };
 
     const handleUploadEdit = () => {
-        if(uploadEditMode == true)
+        if(uploadEditMode == true) {
+            setAadhar(null);
+            setPan(null);
+            setProfile(null);
             setUploadEditMode(false);
+        }
         else
             setUploadEditMode(true);
     };
@@ -124,7 +128,8 @@ const Profile = () => {
     };
 
     const handleUploadSave = async() => {
-        //
+        PostDetail();
+        console.log("Tried saving");
     };
 
     const handleCancel = () => {
@@ -133,7 +138,9 @@ const Profile = () => {
     };
 
     const handleUploadCancel = () => {
-        //
+        setAadhar(null);
+        setPan(null);
+        setProfile(null);
         setUploadEditMode(false);
     };
 
@@ -149,7 +156,7 @@ const Profile = () => {
         );
     }
 
-    const AadharImage=async()=>{
+    const AadharImage = async() => {
         let result=await ImagePicker.launchImageLibraryAsync({
             mediaTypes:ImagePicker.MediaTypeOptions.Images,
             allowsEditing:true,
@@ -161,7 +168,7 @@ const Profile = () => {
         }
     };
 
-    const PanImage=async()=>{
+    const PanImage = async() => {
         let result=await ImagePicker.launchImageLibraryAsync({
             mediaTypes:ImagePicker.MediaTypeOptions.Images,
             allowsEditing:true,
@@ -173,7 +180,7 @@ const Profile = () => {
         }
     };
 
-    const ProfileImage=async()=>{
+    const ProfileImage = async() => {
         let result=await ImagePicker.launchImageLibraryAsync({
             mediaTypes:ImagePicker.MediaTypeOptions.Images,
             allowsEditing:true,
@@ -185,39 +192,36 @@ const Profile = () => {
         }
     };
 
-    async function PostDetail() {
+    const PostDetail = async() => {
+        console.log(aadhar, pan, profile);
         const formData = new FormData();
         formData.append('aadhar',{
-            name:'aadhar',
-            uri:aadhar,
-            type:'image/jpg'
+            name: 'aadhar',
+            uri: aadhar,
+            type: 'image/jpg'
         });
         formData.append('pan',{
-            name:'pan',
-            uri:pan,
-            type:'image/jpg'
+            name: 'pan',
+            uri: pan,
+            type: 'image/jpg'
         });
         formData.append('profile', {
-            name:'profile',
-            uri:profile,
-            type:'image/jpg'
+            name: 'profile',
+            uri: profile,
+            type: 'image/jpg'
         });
-        formData.append('name', name);
-        formData.append('address', address);
-        formData.append('phone', phone);
+        formData.append('user_id', userDetails.user_id);
 
         console.log(formData);
 
         try {
-            const res = await axios.post('http://localhost:5000/storeUserDetail', formData, {
+            const res = await axios.post('http://localhost:5000/api/v1/postDocsLink', formData, {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'multipart/form-data'
                 }
             });
             console.log(res.data);
-
-            navigation.navigate('ViewDetails')
         } catch (err) {
             console.log(err);
         }
@@ -350,7 +354,7 @@ const Profile = () => {
                         {uploadEditMode && <Text style={styles.errorText}>{error}</Text>}
                         {uploadEditMode && (
                             <View style={styles.buttonContainer}>
-                                <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUploadCancel}>
+                                <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUploadSave}>
                                     <Text style={styles.buttonText}>{t('save-button')}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.modalButton, styles.closeButton]} onPress={handleUploadCancel}>

@@ -55,6 +55,17 @@ const Options = () => {
                             </View>
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.section}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('UserMarketItems'); }}>
+                            <View style={styles.card}>
+                                <ImageBackground source={require('../../assets/cattle/cattle2.jpg')} style={styles.image} >
+                                    <View style={styles.textContainer}>
+                                        <Text style={styles.sectionText}>Your Market Items</Text>
+                                    </View>
+                                </ImageBackground>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>

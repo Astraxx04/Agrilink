@@ -212,5 +212,3 @@ const styles = StyleSheet.create({
 });
 
 export default UserData;
-
-// Reaload icon on top
